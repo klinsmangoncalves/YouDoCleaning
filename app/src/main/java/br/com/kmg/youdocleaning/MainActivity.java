@@ -41,12 +41,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() == null) {
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
-            }
+        if(result != null && result.getContents() != null) {
+            Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
