@@ -2,4 +2,6 @@
     <string name="app_name">YouDoCleaning</string>
     <string name="label_qr_code_reading">Point to QR Code</string>
     <string name="bt_read_qr_code">Read QR Code</string>
+    <string name="cleaning_status_running">Running</string>
+    <string name="cleaning_status_finished">Done</string>
 </resources>

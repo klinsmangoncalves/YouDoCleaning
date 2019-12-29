@@ -8,21 +8,29 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.io.Serializable;
+import java.util.Date;
+
+import br.com.kmg.youdocleaning.database.FirebaseManager;
+import br.com.kmg.youdocleaning.model.Cleaning;
+import br.com.kmg.youdocleaning.model.CleaningStatus;
+
 public class MainActivity extends AppCompatActivity {
 
-    private Button btReadQRCode;
+    private Button mBtReadQRCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btReadQRCode = findViewById(R.id.bt_read_qr_code);
-
-        btReadQRCode.setOnClickListener(new View.OnClickListener() {
+        mBtReadQRCode = findViewById(R.id.bt_read_qr_code);
+        mBtReadQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 readQrCode();
@@ -42,10 +50,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null && result.getContents() != null) {
-            Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+            String qrCodeDepartment = result.getContents();
+            Cleaning cleaning = new Cleaning(qrCodeDepartment, new Date(), null, CleaningStatus.RUNNING.getDescription());
+            String cleaningId = FirebaseManager.getInstance().saveCleaning(cleaning);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-
 }

@@ -3,4 +3,6 @@
     <string name="app_name">YouDoCleaning</string>
     <string name="label_qr_code_reading">Aponte para o código do departamento</string>
     <string name="bt_read_qr_code">Ler departamento</string>
+    <string name="cleaning_status_running">Em andamento</string>
+    <string name="cleaning_status_finished">Finalizada</string>
 </resources>
