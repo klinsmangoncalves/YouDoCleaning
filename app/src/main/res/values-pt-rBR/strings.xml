@@ -5,4 +5,7 @@
     <string name="bt_read_qr_code">Ler departamento</string>
     <string name="cleaning_status_running">Em andamento</string>
     <string name="cleaning_status_finished">Finalizada</string>
+    <string name="bt_finish_cleaning_label">Finalizar</string>
+    <string name="title_activity_cleaning_progress">LImpeza Atual</string>
+    <string name="label_no_cleanings_today">Nenhuma limpeza realizada hoje, clique no botão Ler Departamento para adicionar a limpeza do departamento.</string>
 </resources>

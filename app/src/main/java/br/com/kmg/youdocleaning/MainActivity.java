@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
             String qrCodeDepartment = result.getContents();
             Cleaning cleaning = new Cleaning(qrCodeDepartment, new Date(), null, CleaningStatus.RUNNING.getDescription());
             String cleaningId = FirebaseManager.getInstance().saveCleaning(cleaning);
+            Intent intent = new Intent(this, CleaningProgress.class);
+            startActivity(intent);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }

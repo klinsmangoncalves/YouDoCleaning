@@ -4,4 +4,7 @@
     <string name="bt_read_qr_code">Read QR Code</string>
     <string name="cleaning_status_running">Running</string>
     <string name="cleaning_status_finished">Done</string>
+    <string name="title_activity_cleaning_progress">Cleaning Progress</string>
+    <string name="bt_finish_cleaning_label">Finish</string>
+    <string name="label_no_cleanings_today">No cleanings realized today. Click on the Read QR code and start cleaning.</string>
 </resources>
