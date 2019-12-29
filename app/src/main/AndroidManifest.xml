@@ -10,11 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:launchMode="singleTop"
             android:name=".CleaningProgress"
             android:label="@string/title_activity_cleaning_progress"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

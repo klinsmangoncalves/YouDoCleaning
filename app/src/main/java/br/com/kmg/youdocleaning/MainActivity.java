@@ -20,7 +20,8 @@ import br.com.kmg.youdocleaning.database.FirebaseManager;
 import br.com.kmg.youdocleaning.model.Cleaning;
 import br.com.kmg.youdocleaning.model.CleaningStatus;
 
-public class MainActivity extends AppCompatActivity {
+public class
+MainActivity extends AppCompatActivity implements FirebaseManager.OnReadFirebaseCurrentCleaning {
 
     private Button mBtReadQRCode;
 
@@ -30,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mBtReadQRCode = findViewById(R.id.bt_read_qr_code);
+
+        FirebaseManager.getInstance().getCurrentCleaning();
+        FirebaseManager.getInstance().setmCurrentCleaningListener(this);
+
         mBtReadQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,11 +57,25 @@ public class MainActivity extends AppCompatActivity {
         if(result != null && result.getContents() != null) {
             String qrCodeDepartment = result.getContents();
             Cleaning cleaning = new Cleaning(qrCodeDepartment, new Date(), null, CleaningStatus.RUNNING.getDescription());
-            String cleaningId = FirebaseManager.getInstance().saveCleaning(cleaning);
-            Intent intent = new Intent(this, CleaningProgress.class);
-            startActivity(intent);
+            FirebaseManager.getInstance().saveCurrentCleaning(cleaning);
+            openProgressActivity();
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    @Override
+    public void onReadCurrentCleaning(Cleaning cleaning) {
+        if(cleaning != null){
+            openProgressActivity();
+        } else {
+            mBtReadQRCode.setEnabled(true);
+        }
+    }
+
+    private void openProgressActivity(){
+        Intent intent = new Intent(this, CleaningProgress.class);
+        startActivity(intent);
+        finish();
     }
 }

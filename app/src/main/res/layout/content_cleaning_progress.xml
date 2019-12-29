@@ -38,6 +38,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <Button
+        android:enabled="false"
         android:id="@+id/bt_finish_cleaning"
         android:layout_width="0dp"
         android:layout_height="45dp"
