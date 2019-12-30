@@ -1,5 +1,7 @@
 package br.com.kmg.youdocleaning;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -82,21 +84,26 @@ public class CleaningProgress extends AppCompatActivity implements FirebaseManag
             FirebaseManager.getInstance().deleteCurrentCleaning();
             FirestoreManager.getInstance().saveCleaning(new FireStoreCleaning(mCleaning));
             openMainActivity();
+            Toast.makeText(this, getString(R.string.cleaning_finished_message), Toast.LENGTH_LONG).show();
+            updateWidgets(null);
         }
     }
 
     @Override
     public void onReadCurrentCleaning(Cleaning cleaning) {
-        mCleaning = cleaning;
-        mFinishCleaning.setEnabled(true);
-        long currentTimeMilis = new Date().getTime();
-        long startedCleaningTime = cleaning.getStartCleaning().getTime();
-        long diff = currentTimeMilis - startedCleaningTime;
-        long elapsedTime = SystemClock.elapsedRealtime() - diff;
+        if(cleaning != null){
+            mCleaning = cleaning;
+            mFinishCleaning.setEnabled(true);
+            long currentTimeMillis = new Date().getTime();
+            long startedCleaningTime = cleaning.getStartCleaning().getTime();
+            long diff = currentTimeMillis - startedCleaningTime;
+            long elapsedTime = SystemClock.elapsedRealtime() - diff;
 
-        startChronometer(elapsedTime);
-        FirebaseManager.getInstance().setmCurrentCleaningListener(null);
-        setStartedCleaning(cleaning.getStartCleaning());
+            startChronometer(elapsedTime);
+            FirebaseManager.getInstance().setmCurrentCleaningListener(null);
+            setStartedCleaning(cleaning.getStartCleaning());
+            updateWidgets(elapsedTime);
+        }
     }
 
     private void setStartedCleaning(Date date){
@@ -109,5 +116,11 @@ public class CleaningProgress extends AppCompatActivity implements FirebaseManag
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void updateWidgets(Long elapsedTime){
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        int [] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, CleaningWidgetProvider.class));
+        CleaningWidgetProvider.updateCleaningWidgets(this, appWidgetManager, appWidgetIds, elapsedTime);
     }
 }

@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import br.com.kmg.youdocleaning.database.FirebaseManager;
@@ -63,6 +65,7 @@ MainActivity extends AppCompatActivity implements FirebaseManager.OnReadFirebase
             String qrCodeDepartment = result.getContents();
             Cleaning cleaning = new Cleaning(qrCodeDepartment, new Timestamp(), null, CleaningStatus.RUNNING.getDescription());
             FirebaseManager.getInstance().saveCurrentCleaning(cleaning);
+            Toast.makeText(this, getString(R.string.qr_code_recognized_message), Toast.LENGTH_LONG).show();
             openProgressActivity();
         } else {
             super.onActivityResult(requestCode, resultCode, data);

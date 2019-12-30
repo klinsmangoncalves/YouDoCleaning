@@ -2,16 +2,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_gravity="center"
     android:padding="@dimen/widget_margin">
 
-    <ImageView
-        android:id="@+id/iv_widget_qr_code"
-        android:scaleType="fitCenter"
-        android:padding="2dp"
-        android:background="#fff"
-        android:src="@drawable/ic_icon_qr_code"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ImageView>
+   <LinearLayout
+       android:visibility="gone"
+       android:id="@+id/widget_cleaning_progress"
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <Chronometer
+           android:layout_weight="2"
+           android:id="@+id/widget_chronometer"
+           android:layout_width="match_parent"
+           android:layout_height="0dp"
+           android:background="@drawable/bg_chronometer"
+           android:gravity="center"
+           android:textColor="#000"
+           android:textSize="15sp"
+           android:textStyle="bold" />
+
+       <Button
+           android:layout_weight="1"
+           android:id="@+id/bt_widget_finish_cleaning"
+           android:layout_width="match_parent"
+           android:layout_height="0dp"
+           android:layout_marginEnd="8dp"
+           android:background="@drawable/bg_button_stop"
+           android:drawableLeft="@drawable/ic_stop_black_24dp"
+           android:paddingHorizontal="10dp"
+           android:textColor="#FFF"
+           android:textSize="12sp"
+           android:text="@string/bt_finish_cleaning_label" />
+   </LinearLayout>
+
+   <LinearLayout
+    android:id="@+id/widget_layout_read_qr_code"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+       <ImageView
+           android:id="@+id/iv_widget_qr_code"
+           android:scaleType="fitCenter"
+           android:padding="2dp"
+           android:background="#fff"
+           android:src="@drawable/ic_icon_qr_code"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+       </ImageView>
+   </LinearLayout>
 
 </LinearLayout>

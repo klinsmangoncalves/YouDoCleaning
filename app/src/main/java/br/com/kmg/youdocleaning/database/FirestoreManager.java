@@ -14,6 +14,7 @@ public class FirestoreManager {
 
     final String TAG = "FirestoreManager";
     final FirebaseFirestore db;
+    private static final String DOCUMENT_CLEANING = "cleanings";
     private static FirestoreManager manager;
 
     private FirestoreManager() {
@@ -28,7 +29,7 @@ public class FirestoreManager {
     }
 
     public void saveCleaning(FireStoreCleaning data){
-        db.collection("cleanings")
+        db.collection(DOCUMENT_CLEANING)
                 .add(data)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

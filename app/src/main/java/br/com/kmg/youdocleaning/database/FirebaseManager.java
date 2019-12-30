@@ -8,6 +8,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import br.com.kmg.youdocleaning.model.Cleaning;
+import br.com.kmg.youdocleaning.model.FireStoreCleaning;
 
 public class FirebaseManager {
 
@@ -50,6 +51,29 @@ public class FirebaseManager {
     public void deleteCurrentCleaning(){
         DatabaseReference cleaningRef = database.getReference(CURRENT_CLEANING);
         cleaningRef.removeValue();
+    }
+
+    public void finishCleaning(){
+        DatabaseReference cleaningRef = database.getReference(CURRENT_CLEANING);
+        cleaningRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Cleaning cleaning = null;
+                if(dataSnapshot != null){
+                    cleaning = dataSnapshot.getValue(Cleaning.class);
+                    if(cleaning != null){
+                        FirestoreManager.getInstance().saveCleaning(new FireStoreCleaning(cleaning));
+                        deleteCurrentCleaning();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
     }
 
     public void getCurrentCleaning(){
