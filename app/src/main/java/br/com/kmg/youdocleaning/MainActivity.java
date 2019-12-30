@@ -19,6 +19,7 @@ public class
 MainActivity extends AppCompatActivity implements FirebaseManager.OnReadFirebaseCurrentCleaning {
 
     private Button mBtReadQRCode;
+    private boolean mLaunchedWidget = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +31,21 @@ MainActivity extends AppCompatActivity implements FirebaseManager.OnReadFirebase
         FirebaseManager.getInstance().getCurrentCleaning();
         FirebaseManager.getInstance().setmCurrentCleaningListener(this);
 
+        Intent intent = getIntent();
+
+        if(intent != null && intent.hasExtra(CleaningWidgetProvider.WIDGET_INFO_EXTRA)){
+            mLaunchedWidget = true;
+        }
+
         mBtReadQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 readQrCode();
             }
         });
+
+
+
     }
 
     private void readQrCode(){
@@ -65,6 +75,9 @@ MainActivity extends AppCompatActivity implements FirebaseManager.OnReadFirebase
             openProgressActivity();
         } else {
             mBtReadQRCode.setEnabled(true);
+            if(mLaunchedWidget){
+                readQrCode();
+            }
         }
     }
 

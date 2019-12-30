@@ -7,4 +7,6 @@
     <string name="title_activity_cleaning_progress">Cleaning Progress</string>
     <string name="bt_finish_cleaning_label">Finish</string>
     <string name="label_no_cleanings_today">No cleanings realized today. Click on the Read QR code and start cleaning.</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
