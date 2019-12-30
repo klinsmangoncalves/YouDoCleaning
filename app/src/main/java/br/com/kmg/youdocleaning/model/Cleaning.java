@@ -1,15 +1,24 @@
 package br.com.kmg.youdocleaning.model;
 
+import com.google.firebase.database.PropertyName;
+
 import java.io.Serializable;
-import java.util.Date;
 
 public class Cleaning implements Serializable {
+
+    @PropertyName("sector_id")
     private String idDepartment;
-    private Date startCleaning;
-    private Date finishCleaning;
+
+    @PropertyName("start_datetime")
+    private Timestamp startCleaning;
+
+    @PropertyName("end_datetime")
+    private Timestamp finishCleaning;
+
+    @PropertyName("status")
     private String status;
 
-    public Cleaning(String idDepartment, Date startCleaning, Date finishCleaning, String status) {
+    public Cleaning(String idDepartment, Timestamp startCleaning, Timestamp finishCleaning, String status) {
         this.idDepartment = idDepartment;
         this.startCleaning = startCleaning;
         this.finishCleaning = finishCleaning;
@@ -27,19 +36,19 @@ public class Cleaning implements Serializable {
         this.idDepartment = idDepartment;
     }
 
-    public Date getStartCleaning() {
+    public Timestamp getStartCleaning() {
         return startCleaning;
     }
 
-    public void setStartCleaning(Date startCleaning) {
+    public void setStartCleaning(Timestamp startCleaning) {
         this.startCleaning = startCleaning;
     }
 
-    public Date getFinishCleaning() {
+    public Timestamp getFinishCleaning() {
         return finishCleaning;
     }
 
-    public void setFinishCleaning(Date finishCleaning) {
+    public void setFinishCleaning(Timestamp finishCleaning) {
         this.finishCleaning = finishCleaning;
     }
 

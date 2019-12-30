@@ -21,8 +21,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import br.com.kmg.youdocleaning.database.FirebaseManager;
+import br.com.kmg.youdocleaning.database.FirestoreManager;
 import br.com.kmg.youdocleaning.model.Cleaning;
 import br.com.kmg.youdocleaning.model.CleaningStatus;
+import br.com.kmg.youdocleaning.model.FireStoreCleaning;
+import br.com.kmg.youdocleaning.model.Timestamp;
 
 public class CleaningProgress extends AppCompatActivity implements FirebaseManager.OnReadFirebaseCurrentCleaning {
     private Chronometer chronometer;
@@ -47,8 +50,6 @@ public class CleaningProgress extends AppCompatActivity implements FirebaseManag
 
         FirebaseManager.getInstance().getCurrentCleaning();
         FirebaseManager.getInstance().setmCurrentCleaningListener(this);
-
-//        startChronometer(SystemClock.elapsedRealtime());
     }
 
     private void setClickListeners(){
@@ -63,23 +64,25 @@ public class CleaningProgress extends AppCompatActivity implements FirebaseManag
         mFinishCleaning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mCleaning != null){
-                    mCleaning.setFinishCleaning(new Date());
-                    mCleaning.setStatus(CleaningStatus.FINISHED.getDescription());
-                    FirebaseManager.getInstance().saveCleaning(mCleaning);
-                    FirebaseManager.getInstance().deleteCurrentCleaning();
-                    openMainActivity();
-                }
+                finishCleaning();
             }
         });
     }
 
     public void startChronometer(long startedTime) {
-        Log.d("HORARIO", String.valueOf(SystemClock.elapsedRealtime()));
-        Log.d("HORARIO date ", String.valueOf(new Date().getTime()));
-        Log.d("HORARIO parameter ", String.valueOf(startedTime));
         chronometer.setBase(startedTime);
         chronometer.start();
+    }
+
+    private void finishCleaning(){
+        if (mCleaning != null){
+            mCleaning.setFinishCleaning( new Timestamp());
+            mCleaning.setStatus(CleaningStatus.FINISHED.getDescription());
+            FirebaseManager.getInstance().saveCleaning(mCleaning);
+            FirebaseManager.getInstance().deleteCurrentCleaning();
+            FirestoreManager.getInstance().saveCleaning(new FireStoreCleaning(mCleaning));
+            openMainActivity();
+        }
     }
 
     @Override

@@ -39,24 +39,20 @@ public class FirebaseManager {
         DatabaseReference cleaningRef = database.getReference(CLEANING_DOCUMENT);
         String cleanIdKey = cleaningRef.push().getKey();
         cleaningRef.child(cleanIdKey).setValue(cleaning);
-        Log.d(TAG, "saveCleaning - getReference: " + cleanIdKey);
         return cleanIdKey;
     }
 
     public void saveCurrentCleaning(Cleaning cleaning){
-        Log.d(TAG, "setCurrentCleaning()");
         DatabaseReference cleaningRef = database.getReference(CURRENT_CLEANING);
         cleaningRef.setValue(cleaning);
     }
 
     public void deleteCurrentCleaning(){
-        Log.d(TAG, "deleteCurrentCleaning()");
         DatabaseReference cleaningRef = database.getReference(CURRENT_CLEANING);
         cleaningRef.removeValue();
     }
 
     public void getCurrentCleaning(){
-        Log.d(TAG, "getCurrentCleaning()");
         DatabaseReference cleaningRef = database.getReference(CURRENT_CLEANING);
         cleaningRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -85,15 +81,11 @@ public class FirebaseManager {
 
     public void getCleaningById(String id){
         DatabaseReference cleaningRef = database.getReference(CLEANING_DOCUMENT);
-
-        Log.d(TAG, "getCleaningById - ID: " + id);
         cleaningRef.child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot != null){
                     Cleaning cleaning = dataSnapshot.getValue(Cleaning.class);
-                } else {
-                    Log.d(TAG, "dataSnapshot - VALOR NULO" );
                 }
             }
 

@@ -6,19 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-
-import java.io.Serializable;
-import java.util.Date;
-
 import br.com.kmg.youdocleaning.database.FirebaseManager;
+import br.com.kmg.youdocleaning.database.FirestoreManager;
 import br.com.kmg.youdocleaning.model.Cleaning;
 import br.com.kmg.youdocleaning.model.CleaningStatus;
+import br.com.kmg.youdocleaning.model.FireStoreCleaning;
+import br.com.kmg.youdocleaning.model.Timestamp;
 
 public class
 MainActivity extends AppCompatActivity implements FirebaseManager.OnReadFirebaseCurrentCleaning {
@@ -56,7 +51,7 @@ MainActivity extends AppCompatActivity implements FirebaseManager.OnReadFirebase
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null && result.getContents() != null) {
             String qrCodeDepartment = result.getContents();
-            Cleaning cleaning = new Cleaning(qrCodeDepartment, new Date(), null, CleaningStatus.RUNNING.getDescription());
+            Cleaning cleaning = new Cleaning(qrCodeDepartment, new Timestamp(), null, CleaningStatus.RUNNING.getDescription());
             FirebaseManager.getInstance().saveCurrentCleaning(cleaning);
             openProgressActivity();
         } else {
