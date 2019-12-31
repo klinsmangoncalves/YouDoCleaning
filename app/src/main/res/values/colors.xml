@@ -4,5 +4,6 @@
     <color name="colorPrimaryDark">#0288D1</color>
     <color name="colorAccent">#FF9800</color>
     <color name="textColor">#FFF</color>
+    <color name="card_bg_color">#88FFFFFF</color>
     <color name="btStopColor">#CE4545</color>
 </resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg_list_item"
+    android:elevation="6dp"
+    android:layout_margin="4dp"
+    android:padding="6dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_company_logo"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_icon_qr_code"
+                android:scaleType="fitCenter"/>
+
+            <TextView
+                tools:text="BBBBBB"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:id="@+id/tv_department_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+            <TextView
+                tools:text="AAAAAA"
+                android:textColor="#5F5C5C"
+                android:id="@+id/tv_cleaning_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
+        </LinearLayout>
+
+
+
+
+</LinearLayout>

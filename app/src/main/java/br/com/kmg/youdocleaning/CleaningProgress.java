@@ -24,12 +24,14 @@ import java.util.Date;
 
 import br.com.kmg.youdocleaning.database.FirebaseManager;
 import br.com.kmg.youdocleaning.database.FirestoreManager;
+import br.com.kmg.youdocleaning.listener.OnReadFirebaseCurrentCleaning;
 import br.com.kmg.youdocleaning.model.Cleaning;
 import br.com.kmg.youdocleaning.model.CleaningStatus;
 import br.com.kmg.youdocleaning.model.FireStoreCleaning;
 import br.com.kmg.youdocleaning.model.Timestamp;
+import br.com.kmg.youdocleaning.util.DateUtil;
 
-public class CleaningProgress extends AppCompatActivity implements FirebaseManager.OnReadFirebaseCurrentCleaning {
+public class CleaningProgress extends AppCompatActivity implements OnReadFirebaseCurrentCleaning {
     private Chronometer chronometer;
     private Button mFinishCleaning;
     private FloatingActionButton fab;
@@ -107,9 +109,8 @@ public class CleaningProgress extends AppCompatActivity implements FirebaseManag
     }
 
     private void setStartedCleaning(Date date){
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        String dateTime = formatter.format(date);
-        tvTimeStarted.setText("Início: " + dateTime);
+        String dateTime = DateUtil.getDateStringFromDate(date);
+        tvTimeStarted.setText(getString(R.string.label_cleaning_start, dateTime));
     }
 
     private void openMainActivity(){

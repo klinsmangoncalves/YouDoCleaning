@@ -10,4 +10,5 @@
     <string name="label_no_cleanings_today">Nenhuma limpeza realizada hoje, clique no botão Ler Departamento para adicionar a limpeza do departamento.</string>
     <string name="cleaning_finished_message">Limpeza Finalizada</string>
     <string name="qr_code_recognized_message">Setor reconhecido com sucesso</string>
+    <string name="label_cleaning_start">Início: %1$s</string>
 </resources>

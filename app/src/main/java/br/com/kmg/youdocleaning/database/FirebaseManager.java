@@ -2,11 +2,17 @@ package br.com.kmg.youdocleaning.database;
 
 import android.util.Log;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.firebase.ui.database.SnapshotParser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import br.com.kmg.youdocleaning.adapter.CleaningListAdapter;
+import br.com.kmg.youdocleaning.listener.OnReadCleaningListListener;
+import br.com.kmg.youdocleaning.listener.OnReadFirebaseCurrentCleaning;
 import br.com.kmg.youdocleaning.model.Cleaning;
 import br.com.kmg.youdocleaning.model.FireStoreCleaning;
 
@@ -15,15 +21,10 @@ public class FirebaseManager {
     private final String TAG = "FireBaseManager";
     private final String CLEANING_DOCUMENT = "cleaning";
     private final String CURRENT_CLEANING = "currentCleaning";
-
     final FirebaseDatabase database;
     private static FirebaseManager instance;
 
     private OnReadFirebaseCurrentCleaning mCurrentCleaningListener;
-
-    public interface OnReadFirebaseCurrentCleaning {
-        void onReadCurrentCleaning(Cleaning cleaning);
-    }
 
     public static FirebaseManager getInstance(){
         if(instance == null){
@@ -121,6 +122,28 @@ public class FirebaseManager {
         });
     }
 
+    public CleaningListAdapter getFirebaseCleaningAdapter(){
+
+        DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference messagesRef = mFirebaseDatabaseReference.child("cleaning");
+
+        SnapshotParser<Cleaning> parser = new SnapshotParser<Cleaning>() {
+            @Override
+            public Cleaning parseSnapshot(DataSnapshot dataSnapshot) {
+                Log.d("A_A", "mensagen new ");
+                Cleaning friendlyMessage = dataSnapshot.getValue(Cleaning.class);
+                if (friendlyMessage != null) {
+                    //friendlyMessage.setId(dataSnapshot.getKey());
+                }
+                return friendlyMessage;
+            }
+        };
+
+        FirebaseRecyclerOptions<Cleaning> options = new FirebaseRecyclerOptions.Builder<Cleaning>()
+                .setQuery(messagesRef, parser).build();
+        return new CleaningListAdapter(options);
+    }
+
     public OnReadFirebaseCurrentCleaning getmCurrentCleaningListener() {
         return mCurrentCleaningListener;
     }
@@ -128,4 +151,5 @@ public class FirebaseManager {
     public void setmCurrentCleaningListener(OnReadFirebaseCurrentCleaning mCurrentCleaningListener) {
         this.mCurrentCleaningListener = mCurrentCleaningListener;
     }
+
 }
