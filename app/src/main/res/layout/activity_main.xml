@@ -7,23 +7,24 @@
     tools:context=".MainActivity">
 
     <Button
-        android:enabled="false"
         android:id="@+id/bt_read_qr_code"
         style="@style/Widget.AppCompat.Button.Colored"
+        android:elevation="4dp"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="8dp"
+        android:enabled="false"
         android:text="@string/bt_read_qr_code"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_cleaning_list_empty"
         android:layout_width="0dp"
         android:layout_height="69dp"
         android:layout_marginStart="8dp"
@@ -33,6 +34,18 @@
         android:textColor="#424141"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_cleaning_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/bt_read_qr_code"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

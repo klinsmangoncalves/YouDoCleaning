@@ -18,11 +18,21 @@ public class Cleaning implements Serializable {
     @PropertyName("status")
     private String status;
 
+    private String companyLogoUrl;
+
     public Cleaning(String idDepartment, Timestamp startCleaning, Timestamp finishCleaning, String status) {
         this.idDepartment = idDepartment;
         this.startCleaning = startCleaning;
         this.finishCleaning = finishCleaning;
         this.status = status;
+    }
+
+    public Cleaning(String idDepartment, Timestamp startCleaning, Timestamp finishCleaning, String status, String companyLogoUrl) {
+        this.idDepartment = idDepartment;
+        this.startCleaning = startCleaning;
+        this.finishCleaning = finishCleaning;
+        this.status = status;
+        this.companyLogoUrl = companyLogoUrl;
     }
 
     public Cleaning() {
@@ -58,5 +68,13 @@ public class Cleaning implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getCompanyLogoUrl() {
+        return companyLogoUrl;
+    }
+
+    public void setCompanyLogoUrl(String companyLogoUrl) {
+        this.companyLogoUrl = companyLogoUrl;
     }
 }
