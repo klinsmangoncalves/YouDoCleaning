@@ -196,7 +196,8 @@ public class MainActivity extends AppCompatActivity implements OnReadFirebaseCur
     }
 
     private void callAboutScreenActivity(){
-
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
     }
 
     private void reportIssue(){

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ui.AboutActivity"
+    tools:showIn="@layout/activity_about">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:padding="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                style="@style/textLabelAbout"
+                android:text="Name:"/>
+
+            <TextView
+                style="@style/textDescriptionAbout"
+                android:text="YouDo - Cleaning"/>
+
+            <TextView
+                style="@style/textLabelAbout"
+                android:text="Version:"/>
+
+            <TextView
+                style="@style/textDescriptionAbout"
+                android:text="1.0"/>
+
+            <TextView
+                style="@style/textLabelAbout"
+                android:text="Description:"/>
+
+            <TextView
+                style="@style/textDescriptionAbout"
+                android:text="This app has been developed for helping cleaning companies register the cleaned departments.">
+            </TextView>
+
+            <TextView
+                style="@style/textLabelAbout"
+                android:text="Usage:"/>
+
+            <TextView
+                android:text="When arrives on the department for cleaning read the QR Code and start cleaning. Your working time will be recorded automatically. When finish click in finish button(on screen or widget)."
+                style="@style/textDescriptionAbout"></TextView>
+
+            <TextView
+                style="@style/textLabelAbout"
+                android:text="Widget:"/>
+
+            <TextView
+                style="@style/textDescriptionAbout"
+                android:text="You can start the cleaning using the widget, just click on it. You can also finish it by clicking in finish from widget.">
+            </TextView>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

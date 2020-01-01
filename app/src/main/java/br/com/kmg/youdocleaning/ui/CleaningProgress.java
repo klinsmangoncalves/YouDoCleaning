@@ -179,6 +179,8 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
     }
 
     private void callAboutScreenActivity(){
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
     }
 
     private void reportIssue(){

@@ -24,5 +24,6 @@
     <string name="str_login_logo">Logo do app</string>
     <string name="str_login_pass">senha</string>
     <string name="title_activity_login">Login</string>
+    <string name="title_activity_about">Sobre</string>
 
 </resources>

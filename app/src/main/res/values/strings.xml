@@ -8,7 +8,7 @@
     <string name="bt_finish_cleaning_label">Finish</string>
     <string name="label_no_cleanings_today">No cleanings realized today. Click on the Read QR code and start cleaning.</string>
     <string name="cleaning_finished_message">Cleaning Finished</string>
-    <string name="qr_code_recognized_message">Departament Recognized</string>
+    <string name="qr_code_recognized_message">Department Recognized</string>
     <string name="label_cleaning_start">Started at: %1$s</string>
     <string name="msg_issue_report">*Issue Report* \nDepartment: %1$s</string>
     <string name="msg_issue_report_no_department">*Issue Report* \n</string>
@@ -24,5 +24,6 @@
     <string name="str_login_pass">Password</string>
     <string name="str_bt_do_login">Login</string>
     <string name="str_login_logo">Logo image</string>
+    <string name="title_activity_about">About</string>
 
 </resources>

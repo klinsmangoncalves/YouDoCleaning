@@ -2,6 +2,9 @@ package br.com.kmg.youdocleaning.database;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
 import com.google.firebase.database.DataSnapshot;
@@ -129,11 +132,7 @@ public class FireBaseCleaningManager {
         SnapshotParser<Cleaning> parser = new SnapshotParser<Cleaning>() {
             @Override
             public Cleaning parseSnapshot(DataSnapshot dataSnapshot) {
-                Log.d("A_A", "mensagen new ");
                 Cleaning friendlyMessage = dataSnapshot.getValue(Cleaning.class);
-                if (friendlyMessage != null) {
-                    //friendlyMessage.setId(dataSnapshot.getKey());
-                }
                 return friendlyMessage;
             }
         };
