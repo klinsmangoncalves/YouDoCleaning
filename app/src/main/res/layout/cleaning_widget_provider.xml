@@ -50,7 +50,8 @@
         android:background="@drawable/bg_list_item"
         android:src="@drawable/ic_icon_qr_code"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:contentDescription="New cleaning icon">
     </ImageView>
    </LinearLayout>
 

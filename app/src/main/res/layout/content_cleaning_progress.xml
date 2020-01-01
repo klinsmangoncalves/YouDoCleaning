@@ -75,7 +75,8 @@
         app:layout_constraintHorizontal_bias="0.34"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/banner_image" />
+        app:srcCompat="@drawable/banner_image"
+        android:contentDescription="Banner image" />
     ?
 
 </androidx.constraintlayout.widget.ConstraintLayout>
