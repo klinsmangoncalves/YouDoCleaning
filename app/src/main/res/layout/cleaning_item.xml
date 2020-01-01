@@ -24,10 +24,10 @@
                 android:contentDescription="@string/cd_company_logo" />
 
             <TextView
-                tools:text="BBBBBB"
+                android:layout_marginTop="4dp"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="#000"
+                android:textColor="@color/textColorDark"
                 android:id="@+id/tv_department_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,8 +35,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"/>
 
             <TextView
-                tools:text="AAAAAA"
-                android:textColor="#5F5C5C"
+                android:textColor="@color/textColorSubTitle"
                 android:id="@+id/tv_cleaning_duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
