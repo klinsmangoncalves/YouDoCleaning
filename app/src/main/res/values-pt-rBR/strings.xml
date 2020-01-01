@@ -34,7 +34,7 @@
     <string name="cd_company_logo">Logo da empresa</string>
     <string name="cd_new_cleaning_icon">Ícone de nova limpeza</string>
     <string name="about_widget_value">Você pode iniciar a limpeza usando o widget, basta clicar nele. Você também pode finalizá-lo clicando em Concluir no widget.</string>
-    <string name="about_usage_value">"Quando chegar ao departamento de limpeza, leia o QR Code e comece a limpeza. O seu tempo de trabalho será gravado automaticamente. Quando terminar, clique no botão Concluir (na tela ou no widget). Abrir no Google Tradutor\t Feedback Resultados da Web Google Tradutor https://translate.google.com.br › ... "</string>
     <string name="about_description_value">" Este aplicativo foi desenvolvido para ajudar as empresas de limpeza a registrar o tempo de limpeza nos departamentos."</string>
+    <string name="about_usage_value">"Quando chegar ao departamento de limpeza, leia o QR Code e comece a limpeza. O seu tempo de trabalho será gravado automaticamente. Quando terminar, clique no botão Concluir (na tela ou no widget)."</string>
 
 </resources>
