@@ -3,6 +3,7 @@ package br.com.kmg.youdocleaning.ui;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -44,6 +45,7 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
     private FloatingActionButton fab;
     private TextView tvTimeStarted;
     private Cleaning mCleaning;
+    Toolbar toolbar;
 
     private final String TAG = "CleaningProgress";
 
@@ -51,7 +53,7 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cleaning_progress);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mFinishCleaning = findViewById(R.id.bt_finish_cleaning);
         chronometer = findViewById(R.id.chronometer);
@@ -123,7 +125,12 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
 
     private void setStartedCleaning(Date date){
         String dateTime = DateUtil.getDateStringFromDate(date);
-        tvTimeStarted.setText(getString(R.string.label_cleaning_start, dateTime));
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            toolbar.setTitle(getString(R.string.label_cleaning_start, dateTime));
+        } else {
+            tvTimeStarted.setText(getString(R.string.label_cleaning_start, dateTime));
+        }
+
     }
 
     private void openMainActivity(){

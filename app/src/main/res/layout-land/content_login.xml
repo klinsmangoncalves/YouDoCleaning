@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ui.LoginActivity"
+    tools:showIn="@layout/activity_login">
+
+
+    <ImageView
+        android:id="@+id/iv_login_beer"
+        android:layout_width="116dp"
+        android:layout_height="113dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/str_login_logo"
+        app:elevation="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_cleaner_svgrepo_com" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.33" />
+
+    <LinearLayout
+        android:layout_width="349dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toTopOf="@+id/guideline5"
+        app:layout_constraintVertical_bias="0.52">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tiv_login"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_person_black_24dp"
+                android:drawablePadding="2dp"
+                android:hint="@string/str_login_id" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tiv_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_vpn_key_black_24dp"
+                android:hint="@string/str_login_pass"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/bt_do_login"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="@string/str_bt_do_login" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/tv_app_name"
+        android:layout_width="133dp"
+        android:layout_height="23dp"
+        android:text="YouDo - Cleaning"
+        android:textColor="#0E426F"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/iv_login_beer"
+        app:layout_constraintHorizontal_bias="0.421"
+        app:layout_constraintStart_toStartOf="@+id/iv_login_beer"
+        app:layout_constraintTop_toBottomOf="@+id/iv_login_beer" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.61" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
