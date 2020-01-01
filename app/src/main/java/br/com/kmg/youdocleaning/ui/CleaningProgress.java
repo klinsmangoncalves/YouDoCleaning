@@ -68,8 +68,13 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, getString(R.string.menu_report_issue), Snackbar.LENGTH_LONG)
+                        .setAction(getString(R.string.action_open_whatsapp), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                reportIssue();
+                            }
+                        }).show();
             }
         });
 

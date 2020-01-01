@@ -12,6 +12,7 @@
     <string name="label_cleaning_start">Started at: %1$s</string>
     <string name="msg_issue_report">*Issue Report* \nDepartment: %1$s</string>
     <string name="msg_issue_report_no_department">*Issue Report* \n</string>
+    <string name="action_open_whatsapp">Open WhatsApp</string>
 
     <string name="menu_report_issue">Report an issue</string>
     <string name="error_unexpected">An error occurred, contact the support</string>

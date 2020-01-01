@@ -18,4 +18,6 @@
     <string name="msg_issue_report">*Problema Encontrado* \nSetor: %1$s</string>
     <string name="error_unexpected">Ocorreu um erro inesperado, contate o suporte</string>
     <string name="msg_issue_report_no_department">*Problema encontrado* \n</string>
+    <string name="action_open_whatsapp">Via WhatsApp</string>
+
 </resources>
