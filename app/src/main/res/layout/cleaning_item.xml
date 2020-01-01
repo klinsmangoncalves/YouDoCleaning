@@ -21,7 +21,7 @@
                 android:layout_height="100dp"
                 android:src="@drawable/ic_icon_qr_code"
                 android:scaleType="fitCenter"
-                android:contentDescription="Company logo" />
+                android:contentDescription="@string/cd_company_logo" />
 
             <TextView
                 tools:text="BBBBBB"

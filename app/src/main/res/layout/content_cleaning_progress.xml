@@ -15,7 +15,6 @@
         android:layout_marginBottom="16dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
-        android:text="Started: 10:45, 18/12/2019"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/chronometer"
@@ -46,7 +45,7 @@
         android:layout_height="45dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/bg_button_stop"
-        android:drawableLeft="@drawable/ic_stop_black_24dp"
+        android:drawableStart="@drawable/ic_stop_black_24dp"
         android:paddingHorizontal="10dp"
         android:textColor="#FFF"
         android:textSize="25sp"
@@ -76,7 +75,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/banner_image"
-        android:contentDescription="Banner image" />
+        android:contentDescription="@string/cd_banner_image" />
     ?
 
 </androidx.constraintlayout.widget.ConstraintLayout>

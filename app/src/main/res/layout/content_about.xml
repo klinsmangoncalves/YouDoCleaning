@@ -28,44 +28,44 @@
 
             <TextView
                 style="@style/textLabelAbout"
-                android:text="Name:"/>
+                android:text="@string/label_about_name"/>
 
             <TextView
                 style="@style/textDescriptionAbout"
-                android:text="YouDo - Cleaning"/>
+                android:text="@string/about_app_name_value"/>
 
             <TextView
                 style="@style/textLabelAbout"
-                android:text="Version:"/>
+                android:text="@string/label_about_version"/>
 
             <TextView
                 style="@style/textDescriptionAbout"
-                android:text="1.0"/>
+                android:text="@string/about_version_value"/>
 
             <TextView
                 style="@style/textLabelAbout"
-                android:text="Description:"/>
+                android:text="@string/label_about_description"/>
 
             <TextView
                 style="@style/textDescriptionAbout"
-                android:text="This app has been developed for helping cleaning companies register the cleaned departments.">
+                android:text="@string/about_description_value">
             </TextView>
 
             <TextView
                 style="@style/textLabelAbout"
-                android:text="Usage:"/>
+                android:text="@string/label_about_usage"/>
 
             <TextView
-                android:text="When arrives on the department for cleaning read the QR Code and start cleaning. Your working time will be recorded automatically. When finish click in finish button(on screen or widget)."
+                android:text="@string/about_usage_value"
                 style="@style/textDescriptionAbout"></TextView>
 
             <TextView
                 style="@style/textLabelAbout"
-                android:text="Widget:"/>
+                android:text="@string/label_about_widget"/>
 
             <TextView
                 style="@style/textDescriptionAbout"
-                android:text="You can start the cleaning using the widget, just click on it. You can also finish it by clicking in finish from widget.">
+                android:text="@string/about_widget_value">
             </TextView>
 
         </LinearLayout>

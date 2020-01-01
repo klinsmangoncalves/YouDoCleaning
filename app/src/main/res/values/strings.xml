@@ -25,5 +25,18 @@
     <string name="str_bt_do_login">Login</string>
     <string name="str_login_logo">Logo image</string>
     <string name="title_activity_about">About</string>
+    <string name="cd_company_logo">Company logo</string>
+    <string name="cd_new_cleaning_icon">New cleaning icon</string>
+    <string name="label_about_name">Name:</string>
+    <string name="about_app_name_value" translatable="false">YouDo - Cleaning</string>
+    <string name="label_about_version">Version:</string>
+    <string name="about_version_value" translatable="false">1.0</string>
+    <string name="label_about_description">Description:</string>
+    <string name="about_description_value">This app has been developed for helping cleaning companies register the cleaned departments.</string>
+    <string name="label_about_usage">Usage:</string>
+    <string name="about_usage_value">When arrives on the department for cleaning read the QR Code and start cleaning. Your working time will be recorded automatically. When finish click in finish button(on screen or widget).</string>
+    <string name="label_about_widget">Widget:</string>
+    <string name="about_widget_value">You can start the cleaning using the widget, just click on it. You can also finish it by clicking in finish from widget.</string>
+    <string name="cd_banner_image">Banner image</string>
 
 </resources>
