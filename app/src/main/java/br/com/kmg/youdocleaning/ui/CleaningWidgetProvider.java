@@ -1,15 +1,14 @@
-package br.com.kmg.youdocleaning;
+package br.com.kmg.youdocleaning.ui;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import br.com.kmg.youdocleaning.R;
 import br.com.kmg.youdocleaning.service.FinishCleaningService;
 
 /**

@@ -1,4 +1,4 @@
-package br.com.kmg.youdocleaning;
+package br.com.kmg.youdocleaning.ui;
 
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
@@ -27,6 +27,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Date;
 
+import br.com.kmg.youdocleaning.R;
 import br.com.kmg.youdocleaning.database.AppConfigResource;
 import br.com.kmg.youdocleaning.database.FireBaseCleaningManager;
 import br.com.kmg.youdocleaning.database.FirestoreManager;

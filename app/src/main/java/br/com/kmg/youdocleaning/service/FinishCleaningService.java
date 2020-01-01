@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.content.Context;
 import android.widget.Toast;
 
-import br.com.kmg.youdocleaning.CleaningWidgetProvider;
+import br.com.kmg.youdocleaning.ui.CleaningWidgetProvider;
 import br.com.kmg.youdocleaning.R;
 import br.com.kmg.youdocleaning.database.FireBaseCleaningManager;
 

@@ -1,4 +1,4 @@
-package br.com.kmg.youdocleaning;
+package br.com.kmg.youdocleaning.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +25,7 @@ import com.google.zxing.integration.android.IntentResult;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import br.com.kmg.youdocleaning.R;
 import br.com.kmg.youdocleaning.adapter.CleaningListAdapter;
 import br.com.kmg.youdocleaning.database.AppConfigResource;
 import br.com.kmg.youdocleaning.database.FireBaseCleaningManager;
