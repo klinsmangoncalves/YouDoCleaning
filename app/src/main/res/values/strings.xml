@@ -19,5 +19,10 @@
     <string name="menu_call_manager">Call manager</string>
     <string name="menu_finish_cleaning">Finish Cleaning</string>
     <string name="menu_about">About</string>
+    <string name="title_activity_login">Login</string>
+    <string name="str_login_id">login</string>
+    <string name="str_login_pass">Password</string>
+    <string name="str_bt_do_login">Login</string>
+    <string name="str_login_logo">Logo image</string>
 
 </resources>

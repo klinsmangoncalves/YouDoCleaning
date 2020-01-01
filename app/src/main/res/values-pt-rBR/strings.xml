@@ -19,5 +19,10 @@
     <string name="error_unexpected">Ocorreu um erro inesperado, contate o suporte</string>
     <string name="msg_issue_report_no_department">*Problema encontrado* \n</string>
     <string name="action_open_whatsapp">Via WhatsApp</string>
+    <string name="str_bt_do_login">Entrar</string>
+    <string name="str_login_id">login</string>
+    <string name="str_login_logo">Logo do app</string>
+    <string name="str_login_pass">senha</string>
+    <string name="title_activity_login">Login</string>
 
 </resources>
