@@ -3,26 +3,32 @@ package br.com.kmg.youdocleaning;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Date;
 
-import br.com.kmg.youdocleaning.database.FirebaseManager;
+import br.com.kmg.youdocleaning.database.AppConfigResource;
+import br.com.kmg.youdocleaning.database.FireBaseCleaningManager;
 import br.com.kmg.youdocleaning.database.FirestoreManager;
 import br.com.kmg.youdocleaning.listener.OnReadFirebaseCurrentCleaning;
 import br.com.kmg.youdocleaning.model.Cleaning;
@@ -37,7 +43,8 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
     private FloatingActionButton fab;
     private TextView tvTimeStarted;
     private Cleaning mCleaning;
-    private String mCurrentKey;
+
+    private final String TAG = "CleaningProgress";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +59,8 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
 
         setClickListeners();
 
-        FirebaseManager.getInstance().getCurrentCleaning();
-        FirebaseManager.getInstance().setmCurrentCleaningListener(this);
+        FireBaseCleaningManager.getInstance().getCurrentCleaning();
+        FireBaseCleaningManager.getInstance().setmCurrentCleaningListener(this);
     }
 
     private void setClickListeners(){
@@ -82,8 +89,8 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
         if (mCleaning != null){
             mCleaning.setFinishCleaning( new Timestamp());
             mCleaning.setStatus(CleaningStatus.FINISHED.getDescription());
-            FirebaseManager.getInstance().saveCleaning(mCleaning);
-            FirebaseManager.getInstance().deleteCurrentCleaning();
+            FireBaseCleaningManager.getInstance().saveCleaning(mCleaning);
+            FireBaseCleaningManager.getInstance().deleteCurrentCleaning();
             FirestoreManager.getInstance().saveCleaning(new FireStoreCleaning(mCleaning));
             openMainActivity();
             Toast.makeText(this, getString(R.string.cleaning_finished_message), Toast.LENGTH_LONG).show();
@@ -102,7 +109,7 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
             long elapsedTime = SystemClock.elapsedRealtime() - diff;
 
             startChronometer(elapsedTime);
-            FirebaseManager.getInstance().setmCurrentCleaningListener(null);
+            FireBaseCleaningManager.getInstance().setmCurrentCleaningListener(null);
             setStartedCleaning(cleaning.getStartCleaning());
             updateWidgets(elapsedTime);
         }
@@ -123,5 +130,68 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int [] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, CleaningWidgetProvider.class));
         CleaningWidgetProvider.updateCleaningWidgets(this, appWidgetManager, appWidgetIds, elapsedTime);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_progress, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_call_manager:
+                callManager();
+                break;
+            case R.id.menu_about:
+                callAboutScreenActivity();
+                break;
+            case R.id.menu_finish_cleaning:
+                finishCleaning();
+                break;
+            case R.id.menu_report_issue:
+                reportIssue();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void callManager(){
+        String contactNumber = AppConfigResource.getInstance().getConfig().getContactNumberWhatsApp();
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + contactNumber));
+        startActivity(intent);
+    }
+
+    private void callAboutScreenActivity(){
+    }
+
+    private void reportIssue(){
+        if(mCleaning == null){
+            return;
+        }
+        String message = getString(R.string.msg_issue_report, mCleaning.getIdDepartment());
+        String contactNumber = AppConfigResource.getInstance().getConfig().getContactNumberWhatsApp();
+
+        if(contactNumber == null){
+            return;
+        }
+
+        sendWhatsappMessage(contactNumber, message);
+    }
+
+    private void sendWhatsappMessage(String contactNumber, String startMessage){
+        String url = "";
+        try {
+            url = "https://api.whatsapp.com/send?phone="+ contactNumber +"&text=" + URLEncoder.encode(startMessage, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Log.e(TAG, e.toString());
+            Toast.makeText(this, getString(R.string.error_unexpected), Toast.LENGTH_LONG).show();
+        }
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
     }
 }

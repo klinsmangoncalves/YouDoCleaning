@@ -2,7 +2,7 @@ package br.com.kmg.youdocleaning;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +11,9 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,8 +21,13 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import br.com.kmg.youdocleaning.adapter.CleaningListAdapter;
-import br.com.kmg.youdocleaning.database.FirebaseManager;
+import br.com.kmg.youdocleaning.database.AppConfigResource;
+import br.com.kmg.youdocleaning.database.FireBaseCleaningManager;
 import br.com.kmg.youdocleaning.listener.OnReadCleaningListListener;
 import br.com.kmg.youdocleaning.listener.OnReadFirebaseCurrentCleaning;
 import br.com.kmg.youdocleaning.model.Cleaning;
@@ -34,12 +42,16 @@ public class MainActivity extends AppCompatActivity implements OnReadFirebaseCur
     private CleaningListAdapter mFirebaseAdapter;
     private RecyclerView mMessageRecyclerView;
     private TextView tvEmptyCleaningList;
-
+    private final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+
+        AppConfigResource.getInstance();
 
         mMessageRecyclerView = findViewById(R.id.rv_cleaning_list);
         mBtReadQRCode = findViewById(R.id.bt_read_qr_code);
@@ -62,15 +74,15 @@ public class MainActivity extends AppCompatActivity implements OnReadFirebaseCur
         mLinearLayoutManager.setStackFromEnd(true);
         mMessageRecyclerView.setLayoutManager(gridLayoutManager);
 
-        FirebaseManager.getInstance().getCurrentCleaning();
-        FirebaseManager.getInstance().setmCurrentCleaningListener(this);
+        FireBaseCleaningManager.getInstance().getCurrentCleaning();
+        FireBaseCleaningManager.getInstance().setmCurrentCleaningListener(this);
 
         Intent intent = getIntent();
         if(intent != null && intent.hasExtra(CleaningWidgetProvider.WIDGET_INFO_EXTRA)){
             mLaunchedWidget = true;
         }
 
-        mFirebaseAdapter = FirebaseManager.getInstance().getFirebaseCleaningAdapter();
+        mFirebaseAdapter = FireBaseCleaningManager.getInstance().getFirebaseCleaningAdapter();
         mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
@@ -121,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements OnReadFirebaseCur
         if(result != null && result.getContents() != null) {
             String qrCodeDepartment = result.getContents();
             Cleaning cleaning = new Cleaning(qrCodeDepartment, new Timestamp(), null, CleaningStatus.RUNNING.getDescription());
-            FirebaseManager.getInstance().saveCurrentCleaning(cleaning);
+            FireBaseCleaningManager.getInstance().saveCurrentCleaning(cleaning);
             Toast.makeText(this, getString(R.string.qr_code_recognized_message), Toast.LENGTH_LONG).show();
             openProgressActivity();
         } else {
@@ -152,4 +164,63 @@ public class MainActivity extends AppCompatActivity implements OnReadFirebaseCur
         super.onResume();
         mFirebaseAdapter.startListening();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_call_manager:
+                callManager();
+                break;
+            case R.id.menu_about:
+                callAboutScreenActivity();
+                break;
+            case R.id.menu_report_issue:
+                reportIssue();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void callManager(){
+        String contactNumber = AppConfigResource.getInstance().getConfig().getContactNumberWhatsApp();
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + contactNumber));
+        startActivity(intent);
+    }
+
+    private void callAboutScreenActivity(){
+
+    }
+
+    private void reportIssue(){
+
+        String message = getString(R.string.msg_issue_report_no_department);
+        String contactNumber = AppConfigResource.getInstance().getConfig().getContactNumberWhatsApp();
+
+        if(contactNumber == null){
+            return;
+        }
+
+        sendWhatsappMessage(contactNumber, message);
+    }
+
+    private void sendWhatsappMessage(String contactNumber, String startMessage){
+        String url = "";
+        try {
+            url = "https://api.whatsapp.com/send?phone="+ contactNumber +"&text=" + URLEncoder.encode(startMessage, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Log.e(TAG, e.toString());
+            Toast.makeText(this, getString(R.string.error_unexpected), Toast.LENGTH_LONG).show();
+        }
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+    }
+
 }

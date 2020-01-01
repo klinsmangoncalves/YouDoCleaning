@@ -11,4 +11,11 @@
     <string name="cleaning_finished_message">Limpeza Finalizada</string>
     <string name="qr_code_recognized_message">Setor reconhecido com sucesso</string>
     <string name="label_cleaning_start">Início: %1$s</string>
+    <string name="menu_about">Sobre</string>
+    <string name="menu_call_manager">Contatar o gerente</string>
+    <string name="menu_finish_cleaning">Finalizar limpeza</string>
+    <string name="menu_report_issue">Reportar problema</string>
+    <string name="msg_issue_report">*Problema Encontrado* \nSetor: %1$s</string>
+    <string name="error_unexpected">Ocorreu um erro inesperado, contate o suporte</string>
+    <string name="msg_issue_report_no_department">*Problema encontrado* \n</string>
 </resources>

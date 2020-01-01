@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        app:showAsAction="never"
+        android:title="@string/menu_report_issue"
+        android:id="@+id/menu_report_issue" />
+    <item
+        app:showAsAction="never"
+        android:title="@string/menu_call_manager"
+        android:id="@+id/menu_call_manager" />
+
+    <item
+        app:showAsAction="never"
+        android:title="@string/menu_about"
+        android:id="@+id/menu_about" />
+</menu>

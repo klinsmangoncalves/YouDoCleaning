@@ -5,14 +5,11 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
-
-import com.google.firebase.FirebaseApp;
 
 import br.com.kmg.youdocleaning.CleaningWidgetProvider;
 import br.com.kmg.youdocleaning.R;
-import br.com.kmg.youdocleaning.database.FirebaseManager;
+import br.com.kmg.youdocleaning.database.FireBaseCleaningManager;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -74,7 +71,7 @@ public class FinishCleaningService extends IntentService {
     }
 
     private void handleActionFinishCleaning(String user) {
-        FirebaseManager.getInstance().finishCleaning();
+        FireBaseCleaningManager.getInstance().finishCleaning();
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int [] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, CleaningWidgetProvider.class));
         Toast.makeText(this, getString(R.string.cleaning_finished_message), Toast.LENGTH_LONG).show();

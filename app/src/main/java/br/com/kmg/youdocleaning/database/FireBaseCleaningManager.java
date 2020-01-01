@@ -11,29 +11,28 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import br.com.kmg.youdocleaning.adapter.CleaningListAdapter;
-import br.com.kmg.youdocleaning.listener.OnReadCleaningListListener;
 import br.com.kmg.youdocleaning.listener.OnReadFirebaseCurrentCleaning;
 import br.com.kmg.youdocleaning.model.Cleaning;
 import br.com.kmg.youdocleaning.model.FireStoreCleaning;
 
-public class FirebaseManager {
+public class FireBaseCleaningManager {
 
-    private final String TAG = "FireBaseManager";
+    private final String TAG = "FireBaseCleaningManager";
     private final String CLEANING_DOCUMENT = "cleaning";
     private final String CURRENT_CLEANING = "currentCleaning";
     final FirebaseDatabase database;
-    private static FirebaseManager instance;
+    private static FireBaseCleaningManager instance;
 
     private OnReadFirebaseCurrentCleaning mCurrentCleaningListener;
 
-    public static FirebaseManager getInstance(){
+    public static FireBaseCleaningManager getInstance(){
         if(instance == null){
-            instance = new FirebaseManager();
+            instance = new FireBaseCleaningManager();
         }
         return instance;
     }
 
-    private FirebaseManager() {
+    private FireBaseCleaningManager() {
         database = FirebaseDatabase.getInstance();
     }
 
