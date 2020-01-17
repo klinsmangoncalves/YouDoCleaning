@@ -7,8 +7,12 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,31 +24,35 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Chronometer;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import br.com.kmg.youdocleaning.R;
+import br.com.kmg.youdocleaning.adapter.TaskListAdapter;
 import br.com.kmg.youdocleaning.database.AppConfigResource;
 import br.com.kmg.youdocleaning.database.FireBaseCleaningManager;
 import br.com.kmg.youdocleaning.database.FirestoreManager;
 import br.com.kmg.youdocleaning.listener.OnReadFirebaseCurrentCleaning;
 import br.com.kmg.youdocleaning.model.Cleaning;
 import br.com.kmg.youdocleaning.model.CleaningStatus;
+import br.com.kmg.youdocleaning.model.CleaningTask;
 import br.com.kmg.youdocleaning.model.FireStoreCleaning;
 import br.com.kmg.youdocleaning.model.Timestamp;
 import br.com.kmg.youdocleaning.util.DateUtil;
 
 public class CleaningProgress extends AppCompatActivity implements OnReadFirebaseCurrentCleaning {
-    private Chronometer chronometer;
-    private Button mFinishCleaning;
+    private Button mbtFinishCleaning;
     private FloatingActionButton fab;
     private TextView tvTimeStarted;
     private Cleaning mCleaning;
+    private ListView lvTasks;
     Toolbar toolbar;
 
     private final String TAG = "CleaningProgress";
@@ -55,15 +63,16 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
         setContentView(R.layout.activity_cleaning_progress);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mFinishCleaning = findViewById(R.id.bt_finish_cleaning);
-        chronometer = findViewById(R.id.chronometer);
+        mbtFinishCleaning = findViewById(R.id.bt_finish_cleaning);
         fab = findViewById(R.id.fab_report_issue);
         tvTimeStarted = findViewById(R.id.tv_time_started);
+        lvTasks = findViewById(R.id.lv_tasks);
 
         setClickListeners();
 
-        FireBaseCleaningManager.getInstance().getCurrentCleaning();
         FireBaseCleaningManager.getInstance().setmCurrentCleaningListener(this);
+        FireBaseCleaningManager.getInstance().getCurrentCleaning();
+
     }
 
     private void setClickListeners(){
@@ -80,7 +89,7 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
             }
         });
 
-        mFinishCleaning.setOnClickListener(new View.OnClickListener() {
+        mbtFinishCleaning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finishCleaning();
@@ -88,10 +97,6 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
         });
     }
 
-    public void startChronometer(long startedTime) {
-        chronometer.setBase(startedTime);
-        chronometer.start();
-    }
 
     private void finishCleaning(){
         if (mCleaning != null){
@@ -110,19 +115,44 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
     public void onReadCurrentCleaning(Cleaning cleaning) {
         if(cleaning != null){
             mCleaning = cleaning;
-            mFinishCleaning.setEnabled(true);
+            mbtFinishCleaning.setEnabled(true);
             long currentTimeMillis = new Date().getTime();
             long startedCleaningTime = cleaning.getStartCleaning().getTime();
             long diff = currentTimeMillis - startedCleaningTime;
             long elapsedTime = SystemClock.elapsedRealtime() - diff;
 
-            startChronometer(elapsedTime);
             FireBaseCleaningManager.getInstance().setmCurrentCleaningListener(null);
             setStartedCleaning(cleaning.getStartCleaning());
             updateWidgets(elapsedTime);
+            setLvTasksList(cleaning.getIdDepartment());
         }
     }
 
+    private void setLvTasksList(String departmentId){
+        FirestoreManager.getInstance().getTasks(departmentId, new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<CleaningTask> cleaningTaskList = new ArrayList<>();
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        CleaningTask cleaningTask = document.toObject(CleaningTask.class);
+                        cleaningTaskList.add(cleaningTask);
+                        Log.d(TAG, document.getId() + " => " + document.getData());
+                    }
+                    setCleaningTasksListAdapter(cleaningTaskList);
+                } else {
+                    Toast.makeText(getApplicationContext(), getString(R.string.qr_code_not_recognized_message), Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+    }
+
+    private void setCleaningTasksListAdapter(List<CleaningTask> cleaningTasks){
+        TaskListAdapter adapter = new TaskListAdapter(cleaningTasks);
+        lvTasks.setAdapter(adapter);
+
+    }
     private void setStartedCleaning(Date date){
         String dateTime = DateUtil.getDateStringFromDate(date);
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){

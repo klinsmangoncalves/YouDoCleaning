@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">YouDo</string>
+    <string name="app_name">JanPro</string>
     <string name="label_qr_code_reading">Point to QR Code</string>
     <string name="bt_read_qr_code">Read QR Code</string>
     <string name="cleaning_status_running">Running</string>
@@ -9,6 +9,7 @@
     <string name="label_no_cleanings_today">No cleanings realized today. Click on the Read QR code and start cleaning.</string>
     <string name="cleaning_finished_message">Cleaning Finished</string>
     <string name="qr_code_recognized_message">Department Recognized</string>
+    <string name="qr_code_not_recognized_message">Invalid QR Code</string>
     <string name="label_cleaning_start">Started at: %1$s</string>
     <string name="msg_issue_report">*Issue Report* \nDepartment: %1$s</string>
     <string name="msg_issue_report_no_department">*Issue Report* \n</string>
@@ -16,9 +17,11 @@
 
     <string name="menu_report_issue">Report an issue</string>
     <string name="error_unexpected">An error occurred, contact the support</string>
+    <string name="error_network">An network error occurred, try again later</string>
     <string name="menu_call_manager">Call manager</string>
     <string name="menu_finish_cleaning">Finish Cleaning</string>
     <string name="menu_about">About</string>
+    <string name="menu_logout">Logout</string>
     <string name="title_activity_login">Login</string>
     <string name="str_login_id">login</string>
     <string name="str_login_pass">Password</string>

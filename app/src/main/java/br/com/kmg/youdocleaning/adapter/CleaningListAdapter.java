@@ -48,7 +48,7 @@ public class CleaningListAdapter extends FirebaseRecyclerAdapter<Cleaning, Clean
             mReadListListener = null;
         }
         if (cleaning.getIdDepartment() != null) {
-            viewHolder.tvDepartmentName.setText(cleaning.getIdDepartment());
+            viewHolder.tvDepartmentName.setText(cleaning.getDepartmentName() == null ? "Sem nome" : cleaning.getDepartmentName());
             String duration = DateUtil.getDateStringTimePeriodFromDate(cleaning.getStartCleaning(), cleaning.getFinishCleaning());
             viewHolder.tvCleaningDuration.setText(duration);
             if(cleaning.getCompanyLogoUrl() != null){

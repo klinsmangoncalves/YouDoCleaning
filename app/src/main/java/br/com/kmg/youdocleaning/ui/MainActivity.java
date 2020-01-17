@@ -19,6 +19,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -29,10 +32,12 @@ import br.com.kmg.youdocleaning.R;
 import br.com.kmg.youdocleaning.adapter.CleaningListAdapter;
 import br.com.kmg.youdocleaning.database.AppConfigResource;
 import br.com.kmg.youdocleaning.database.FireBaseCleaningManager;
+import br.com.kmg.youdocleaning.database.FirestoreManager;
 import br.com.kmg.youdocleaning.listener.OnReadCleaningListListener;
 import br.com.kmg.youdocleaning.listener.OnReadFirebaseCurrentCleaning;
 import br.com.kmg.youdocleaning.model.Cleaning;
 import br.com.kmg.youdocleaning.model.CleaningStatus;
+import br.com.kmg.youdocleaning.model.Sector;
 import br.com.kmg.youdocleaning.model.Timestamp;
 
 public class MainActivity extends AppCompatActivity implements OnReadFirebaseCurrentCleaning {
@@ -133,13 +138,35 @@ public class MainActivity extends AppCompatActivity implements OnReadFirebaseCur
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null && result.getContents() != null) {
             String qrCodeDepartment = result.getContents();
-            Cleaning cleaning = new Cleaning(qrCodeDepartment, new Timestamp(), null, CleaningStatus.RUNNING.getDescription());
-            FireBaseCleaningManager.getInstance().saveCurrentCleaning(cleaning);
-            Toast.makeText(this, getString(R.string.qr_code_recognized_message), Toast.LENGTH_LONG).show();
-            openProgressActivity();
+            final Cleaning cleaning = new Cleaning(qrCodeDepartment, new Timestamp(), null, CleaningStatus.RUNNING.getDescription());
+
+            FirestoreManager.getInstance().getSector(qrCodeDepartment, new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            Sector sector = task.getResult().toObject(Sector.class);
+                            cleaning.setDepartmentName(sector.getName());
+                            onRecognizeSector(cleaning);
+                        } else {
+                            Toast.makeText(getApplicationContext(), getString(R.string.qr_code_not_recognized_message), Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), getString(R.string.qr_code_not_recognized_message), Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    public void onRecognizeSector(Cleaning cleaning){
+        FireBaseCleaningManager.getInstance().saveCurrentCleaning(cleaning);
+        Toast.makeText(this, getString(R.string.qr_code_recognized_message), Toast.LENGTH_LONG).show();
+        openProgressActivity();
     }
 
     @Override

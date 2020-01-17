@@ -18,6 +18,8 @@ public class Cleaning implements Serializable {
     @PropertyName("status")
     private String status;
 
+    private String departmentName;
+
     private String companyLogoUrl;
 
     public Cleaning(String idDepartment, Timestamp startCleaning, Timestamp finishCleaning, String status) {
@@ -72,6 +74,14 @@ public class Cleaning implements Serializable {
 
     public String getCompanyLogoUrl() {
         return companyLogoUrl;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     public void setCompanyLogoUrl(String companyLogoUrl) {
