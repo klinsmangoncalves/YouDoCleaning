@@ -42,5 +42,8 @@
     <string name="app_description">Agente de Limpeza</string>
     <string name="authentication_failed">Login ou senha inválidos</string>
     <string name="minutes_units">minutos</string>
+    <string name="tv_forget_password"><u>Esqueci minha senha</u></string>
+    <string name="msg_invalid_email">Informe seu email</string>
+    <string name="msg_email_sent">Uma mensagem foi enviada para o email informado</string>
 
 </resources>

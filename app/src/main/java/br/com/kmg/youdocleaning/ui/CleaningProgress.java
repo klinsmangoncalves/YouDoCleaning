@@ -103,6 +103,7 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
         if (mCleaning != null){
             mCleaning.setFinishCleaning( new Timestamp());
             mCleaning.setStatus(CleaningStatus.FINISHED.getDescription());
+            mCleaning.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
             FireBaseCleaningManager.getInstance().saveCleaning(mCleaning);
             FireBaseCleaningManager.getInstance().deleteCurrentCleaning();
             FirestoreManager.getInstance().saveCleaning(new FireStoreCleaning(mCleaning));

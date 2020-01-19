@@ -72,15 +72,24 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:layout_marginTop="44dp"
         android:layout_marginBottom="8dp"
         android:text="@string/str_bt_do_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tiv_password"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tiv_password" />
+
+    <TextView
+        android:id="@+id/tv_forgot_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_forget_password"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toTopOf="@+id/bt_do_login"
+        app:layout_constraintEnd_toEndOf="@+id/tiv_password"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/tiv_password"
         app:layout_constraintTop_toBottomOf="@+id/tiv_password" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

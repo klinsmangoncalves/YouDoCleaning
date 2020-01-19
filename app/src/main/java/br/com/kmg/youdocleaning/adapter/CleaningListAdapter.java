@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
@@ -51,24 +50,17 @@ public class CleaningListAdapter extends FirebaseRecyclerAdapter<Cleaning, Clean
             viewHolder.tvDepartmentName.setText(cleaning.getDepartmentName() == null ? "Sem nome" : cleaning.getDepartmentName());
             String duration = DateUtil.getDateStringTimePeriodFromDate(cleaning.getStartCleaning(), cleaning.getFinishCleaning());
             viewHolder.tvCleaningDuration.setText(duration);
-            if(cleaning.getCompanyLogoUrl() != null){
-//                Glide.with(viewHolder.ivCompanyLogo.getContext())
-//                        .load(cleaning.getCompanyLogoUrl()).into(viewHolder.ivCompanyLogo);
-            }
-
         }
 
     }
 
     public static class CleaningViewHolder extends RecyclerView.ViewHolder {
         TextView tvDepartmentName;
-        ImageView ivCompanyLogo;
         TextView tvCleaningDuration;
 
         public CleaningViewHolder(View v) {
             super(v);
             tvDepartmentName = itemView.findViewById(R.id.tv_department_name);
-//            ivCompanyLogo = itemView.findViewById(R.id.iv_company_logo);
             tvCleaningDuration = itemView.findViewById(R.id.tv_cleaning_duration);
         }
     }

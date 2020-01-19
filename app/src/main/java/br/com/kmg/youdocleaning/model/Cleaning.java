@@ -22,6 +22,8 @@ public class Cleaning implements Serializable {
 
     private String companyLogoUrl;
 
+    private String userId;
+
     public Cleaning(String idDepartment, Timestamp startCleaning, Timestamp finishCleaning, String status) {
         this.idDepartment = idDepartment;
         this.startCleaning = startCleaning;
@@ -36,6 +38,8 @@ public class Cleaning implements Serializable {
         this.status = status;
         this.companyLogoUrl = companyLogoUrl;
     }
+
+
 
     public Cleaning() {
     }
@@ -86,5 +90,13 @@ public class Cleaning implements Serializable {
 
     public void setCompanyLogoUrl(String companyLogoUrl) {
         this.companyLogoUrl = companyLogoUrl;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

@@ -18,6 +18,8 @@ public class FireStoreCleaning implements Serializable {
     @PropertyName("status")
     private String status;
 
+    private String userId;
+
     public FireStoreCleaning() {
     }
 
@@ -26,6 +28,7 @@ public class FireStoreCleaning implements Serializable {
         this.start_datetime = cleaning.getStartCleaning();
         this.end_datetime = cleaning.getFinishCleaning();
         this.status = cleaning.getStatus();
+        this.userId = cleaning.getUserId();
     }
 
     public FireStoreCleaning(String idDepartment, Timestamp startCleaning, Timestamp finishCleaning, String status) {
@@ -65,5 +68,13 @@ public class FireStoreCleaning implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

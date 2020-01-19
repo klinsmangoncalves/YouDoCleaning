@@ -18,6 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import br.com.kmg.youdocleaning.R;
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private final String PASSWORD_EXTRA = "password_extra";
     private TextInputLayout tivLogin;
     private TextInputLayout tivPassword;
+    private TextView tvResetPassword;
 
     private FirebaseAuth mAuth;
 
@@ -51,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         btLogin = findViewById(R.id.bt_do_login);
         tivLogin = findViewById(R.id.tiv_login);
         tivPassword = findViewById(R.id.tiv_password);
+        tvResetPassword = findViewById(R.id.tv_forgot_password);
 
         if(savedInstanceState != null && savedInstanceState.containsKey(LOGIN_EXTRA)){
             tivLogin.getEditText().setText(savedInstanceState.getString(LOGIN_EXTRA));
@@ -63,6 +66,14 @@ public class LoginActivity extends AppCompatActivity {
                 String login = tivLogin.getEditText().getText().toString();
                 String password = tivPassword.getEditText().getText().toString();
                 loginFirebase(login, password);
+            }
+        });
+
+        tvResetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String login = tivLogin.getEditText().getText().toString();
+                 resetPassword(login);
             }
         });
 
@@ -123,6 +134,28 @@ public class LoginActivity extends AppCompatActivity {
         if(currentUser != null ){
             goToNextActivity();
         }
+    }
+
+    private void resetPassword(String emailAddress){
+        if(emailAddress == null | emailAddress.isEmpty()){
+            Toast.makeText(getApplicationContext(), getString(R.string.msg_invalid_email), Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        auth.sendPasswordResetEmail(emailAddress.toLowerCase().trim())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), getString(R.string.msg_email_sent), Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), getString(R.string.error_network), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
     }
 
     private void goToNextActivity(){

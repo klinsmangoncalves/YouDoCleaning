@@ -44,5 +44,8 @@
     <string name="label_about_widget">Widget:</string>
     <string name="about_widget_value">You can start the cleaning using the widget, just click on it. You can also finish it by clicking in finish from widget.</string>
     <string name="cd_banner_image">Banner image</string>
+    <string name="tv_forget_password"><u>Forget my password</u></string>
+    <string name="msg_invalid_email">Invalid email</string>
+    <string name="msg_email_sent">A message has been sent to your email</string>
 
 </resources>

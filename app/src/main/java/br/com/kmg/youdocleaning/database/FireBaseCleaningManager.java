@@ -8,6 +8,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import br.com.kmg.youdocleaning.adapter.CleaningListAdapter;
@@ -101,7 +102,7 @@ public class FireBaseCleaningManager {
     public CleaningListAdapter getFirebaseCleaningAdapter(){
 
         DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference messagesRef = mFirebaseDatabaseReference.child("cleaning");
+        Query messagesRef = mFirebaseDatabaseReference.child("cleaning").orderByChild("userId").equalTo("8nAF6ZSjw5fXWNk2rxvaNHffwYH3");
 
         SnapshotParser<Cleaning> parser = new SnapshotParser<Cleaning>() {
             @Override
