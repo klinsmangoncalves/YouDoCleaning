@@ -89,7 +89,8 @@ public class MainActivity extends AppCompatActivity implements OnReadFirebaseCur
             mLaunchedWidget = true;
         }
 
-        mFirebaseAdapter = FireBaseCleaningManager.getInstance().getFirebaseCleaningAdapter();
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        mFirebaseAdapter = FireBaseCleaningManager.getInstance().getFirebaseCleaningAdapter(userId);
         mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {

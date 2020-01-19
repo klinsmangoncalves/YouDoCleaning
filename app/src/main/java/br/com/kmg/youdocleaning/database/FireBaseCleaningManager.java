@@ -99,10 +99,9 @@ public class FireBaseCleaningManager {
         });
     }
 
-    public CleaningListAdapter getFirebaseCleaningAdapter(){
-
+    public CleaningListAdapter getFirebaseCleaningAdapter(String userId){
         DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        Query messagesRef = mFirebaseDatabaseReference.child("cleaning").orderByChild("userId").equalTo("8nAF6ZSjw5fXWNk2rxvaNHffwYH3");
+        Query messagesRef = mFirebaseDatabaseReference.child("cleaning").orderByChild("userId").equalTo(userId);
 
         SnapshotParser<Cleaning> parser = new SnapshotParser<Cleaning>() {
             @Override
