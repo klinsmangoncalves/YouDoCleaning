@@ -44,27 +44,30 @@ public class FireBaseCleaningManager {
         return cleanIdKey;
     }
 
-    public void saveCurrentCleaning(Cleaning cleaning){
-        DatabaseReference cleaningRef = database.getReference(CURRENT_CLEANING);
+    public void saveCurrentCleaning(Cleaning cleaning, String userId){
+        DatabaseReference cleaningRef = database.getReference(userId);
         cleaningRef.setValue(cleaning);
     }
 
-    public void deleteCurrentCleaning(){
-        DatabaseReference cleaningRef = database.getReference(CURRENT_CLEANING);
+    public void deleteCurrentCleaning(String userId){
+        DatabaseReference cleaningRef = database.getReference(userId);
         cleaningRef.removeValue();
+        Log.d(TAG, "deleteCurrentCleaning: " + userId);
     }
 
-    public void finishCleaning(){
-        DatabaseReference cleaningRef = database.getReference(CURRENT_CLEANING);
+    public void finishCleaning(final String userId){
+        Log.d(TAG, "finish cleaning: " + userId);
+        DatabaseReference cleaningRef = database.getReference(userId);
         cleaningRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Cleaning cleaning = null;
                 if(dataSnapshot != null){
+                    Log.d(TAG, "deleteCurrentCleaning: snapshot received");
                     cleaning = dataSnapshot.getValue(Cleaning.class);
                     if(cleaning != null){
                         FirestoreManager.getInstance().saveCleaning(new FireStoreCleaning(cleaning));
-                        deleteCurrentCleaning();
+                        deleteCurrentCleaning(userId);
                     }
                 }
             }
@@ -77,8 +80,8 @@ public class FireBaseCleaningManager {
 
     }
 
-    public void getCurrentCleaning(){
-        DatabaseReference cleaningRef = database.getReference(CURRENT_CLEANING);
+    public void getCurrentCleaning(String userUID){
+        DatabaseReference cleaningRef = database.getReference(userUID);
         cleaningRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

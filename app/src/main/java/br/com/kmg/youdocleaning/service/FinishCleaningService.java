@@ -71,7 +71,7 @@ public class FinishCleaningService extends IntentService {
     }
 
     private void handleActionFinishCleaning(String user) {
-        FireBaseCleaningManager.getInstance().finishCleaning();
+        FireBaseCleaningManager.getInstance().finishCleaning(user);
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int [] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, CleaningWidgetProvider.class));
         Toast.makeText(this, getString(R.string.cleaning_finished_message), Toast.LENGTH_LONG).show();

@@ -46,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_margin="6dp"
-        android:background="@drawable/bg_button_stop"
+        android:background="@drawable/bg_button_stop_disabled"
         android:drawableStart="@drawable/ic_stop_black_24dp"
         android:enabled="false"
         android:paddingHorizontal="10dp"

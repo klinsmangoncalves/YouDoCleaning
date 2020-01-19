@@ -72,7 +72,7 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
         setClickListeners();
 
         FireBaseCleaningManager.getInstance().setmCurrentCleaningListener(this);
-        FireBaseCleaningManager.getInstance().getCurrentCleaning();
+        FireBaseCleaningManager.getInstance().getCurrentCleaning(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
     }
 
@@ -105,7 +105,7 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
             mCleaning.setStatus(CleaningStatus.FINISHED.getDescription());
             mCleaning.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
             FireBaseCleaningManager.getInstance().saveCleaning(mCleaning);
-            FireBaseCleaningManager.getInstance().deleteCurrentCleaning();
+            FireBaseCleaningManager.getInstance().deleteCurrentCleaning(FirebaseAuth.getInstance().getCurrentUser().getUid());
             FirestoreManager.getInstance().saveCleaning(new FireStoreCleaning(mCleaning));
             openMainActivity();
             Toast.makeText(this, getString(R.string.cleaning_finished_message), Toast.LENGTH_LONG).show();
@@ -118,6 +118,7 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
         if(cleaning != null){
             mCleaning = cleaning;
             mbtFinishCleaning.setEnabled(true);
+            mbtFinishCleaning.setBackgroundResource(R.drawable.bg_button_stop);
             long currentTimeMillis = new Date().getTime();
             long startedCleaningTime = cleaning.getStartCleaning().getTime();
             long diff = currentTimeMillis - startedCleaningTime;

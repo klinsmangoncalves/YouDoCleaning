@@ -7,5 +7,6 @@
     <color name="textColorDark">#000</color>
     <color name="card_bg_color">#88FFFFFF</color>
     <color name="btStopColor">#CE4545</color>
+    <color name="btStopColorDisabled">#8C9EA5</color>
     <color name="textColorSubTitle">#5F5C5C</color>
 </resources>

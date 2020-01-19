@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements OnReadFirebaseCur
         mMessageRecyclerView = findViewById(R.id.rv_cleaning_list);
         mBtReadQRCode = findViewById(R.id.bt_read_qr_code);
         tvEmptyCleaningList = findViewById(R.id.tv_cleaning_list_empty);
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         GridLayoutManager gridLayoutManager;
 
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements OnReadFirebaseCur
         mLinearLayoutManager.setStackFromEnd(true);
         mMessageRecyclerView.setLayoutManager(gridLayoutManager);
 
-        FireBaseCleaningManager.getInstance().getCurrentCleaning();
+        FireBaseCleaningManager.getInstance().getCurrentCleaning(userId);
         FireBaseCleaningManager.getInstance().setmCurrentCleaningListener(this);
 
         Intent intent = getIntent();
@@ -89,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements OnReadFirebaseCur
             mLaunchedWidget = true;
         }
 
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         mFirebaseAdapter = FireBaseCleaningManager.getInstance().getFirebaseCleaningAdapter(userId);
         mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements OnReadFirebaseCur
     }
 
     public void onRecognizeSector(Cleaning cleaning){
-        FireBaseCleaningManager.getInstance().saveCurrentCleaning(cleaning);
+        FireBaseCleaningManager.getInstance().saveCurrentCleaning(cleaning, FirebaseAuth.getInstance().getCurrentUser().getUid());
         Toast.makeText(this, getString(R.string.qr_code_recognized_message), Toast.LENGTH_LONG).show();
         openProgressActivity();
     }
