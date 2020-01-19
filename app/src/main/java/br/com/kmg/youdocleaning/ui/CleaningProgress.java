@@ -11,6 +11,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -197,12 +198,15 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
             case R.id.menu_report_issue:
                 reportIssue();
                 break;
+            case R.id.menu_logout:
+                doLogout();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void callManager(){
-        String contactNumber = AppConfigResource.getInstance().getConfig().getContactNumberWhatsApp();
+        String contactNumber = AppConfigResource.getInstance().getContacts().getCellphone();
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:" + contactNumber));
         startActivity(intent);
@@ -218,7 +222,7 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
             return;
         }
         String message = getString(R.string.msg_issue_report, mCleaning.getIdDepartment());
-        String contactNumber = AppConfigResource.getInstance().getConfig().getContactNumberWhatsApp();
+        String contactNumber = AppConfigResource.getInstance().getContacts().getWhatsapp();
 
         if(contactNumber == null){
             return;
@@ -238,5 +242,11 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);
+    }
+
+    private void doLogout(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        FirebaseAuth.getInstance().signOut();
     }
 }

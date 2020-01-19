@@ -24,13 +24,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.3"
-        app:srcCompat="@drawable/ic_cleaner_svgrepo_com"/>
+        app:srcCompat="@drawable/logo_janpro"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tiv_login"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="297dp"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
@@ -40,7 +40,8 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
+            android:inputType="text"
             android:drawableEnd="@drawable/ic_person_black_24dp"
             android:drawablePadding="2dp"
             android:hint="@string/str_login_id" />
@@ -50,8 +51,9 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tiv_password"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:passwordToggleEnabled="true"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/tiv_login"
         app:layout_constraintStart_toStartOf="@+id/tiv_login"
@@ -59,7 +61,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:inputType="textPassword"
             android:drawableEnd="@drawable/ic_vpn_key_black_24dp"
             android:hint="@string/str_login_pass" />

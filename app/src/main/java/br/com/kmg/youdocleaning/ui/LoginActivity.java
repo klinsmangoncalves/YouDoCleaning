@@ -3,15 +3,22 @@ package br.com.kmg.youdocleaning.ui;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import br.com.kmg.youdocleaning.R;
 import br.com.kmg.youdocleaning.util.PreferencesManagerUtil;
@@ -24,6 +31,9 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout tivLogin;
     private TextInputLayout tivPassword;
 
+    private FirebaseAuth mAuth;
+
+    private final String TAG = "LoginActivity_";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +41,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        if(PreferencesManagerUtil.isLogged(getApplicationContext())){
+
+        mAuth = FirebaseAuth.getInstance();
+
+        if(PreferencesManagerUtil.getUserIdPreference(getApplicationContext()) != null){
             goToNextActivity();
         }
 
@@ -48,16 +60,28 @@ public class LoginActivity extends AppCompatActivity {
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doLogin();
+                String login = tivLogin.getEditText().getText().toString();
+                String password = tivPassword.getEditText().getText().toString();
+                loginFirebase(login, password);
             }
         });
 
     }
 
     private void doLogin(){
-        //will handle the custom login for each company user in the future
-        PreferencesManagerUtil.setLogged(getApplicationContext(), true);
+        PreferencesManagerUtil.saveUserIdPreference(getApplicationContext(), "user");
         goToNextActivity();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            //loginFirebase("klinsman.goncalves@gmail.com","123456");
+        }else {
+            updateUI(currentUser);
+        }
     }
 
     @Override
@@ -67,9 +91,43 @@ public class LoginActivity extends AppCompatActivity {
         outState.putString(PASSWORD_EXTRA, tivPassword.getEditText().getText().toString() );
     }
 
+    private void loginFirebase(String email, String password){
+
+        if(email == null || email.isEmpty() || password == null || password.isEmpty()){
+            Toast.makeText(getApplicationContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mAuth.signInWithEmailAndPassword(email.trim().toLowerCase(), password.trim())
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(getApplicationContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+
+                    }
+                });
+    }
+
+    private void updateUI(FirebaseUser currentUser) {
+        Log.d(TAG, currentUser != null ? currentUser.getUid() : " null ");
+        if(currentUser != null ){
+            goToNextActivity();
+        }
+    }
+
     private void goToNextActivity(){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-        this.finish();
     }
 }

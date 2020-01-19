@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -211,12 +212,15 @@ public class MainActivity extends AppCompatActivity implements OnReadFirebaseCur
             case R.id.menu_report_issue:
                 reportIssue();
                 break;
+            case R.id.menu_logout:
+                doLogout();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void callManager(){
-        String contactNumber = AppConfigResource.getInstance().getConfig().getContactNumberWhatsApp();
+        String contactNumber = AppConfigResource.getInstance().getContacts().getCellphone();
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:" + contactNumber));
         startActivity(intent);
@@ -230,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements OnReadFirebaseCur
     private void reportIssue(){
 
         String message = getString(R.string.msg_issue_report_no_department);
-        String contactNumber = AppConfigResource.getInstance().getConfig().getContactNumberWhatsApp();
+        String contactNumber = AppConfigResource.getInstance().getContacts().getWhatsapp();
 
         if(contactNumber == null){
             return;
@@ -252,4 +256,10 @@ public class MainActivity extends AppCompatActivity implements OnReadFirebaseCur
         startActivity(i);
     }
 
+    private void doLogout(){
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
 }

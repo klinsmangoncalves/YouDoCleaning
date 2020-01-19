@@ -1,20 +1,16 @@
 package br.com.kmg.youdocleaning.database;
 
-import android.util.Log;
 import androidx.annotation.NonNull;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import br.com.kmg.youdocleaning.model.AppConfig;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import br.com.kmg.youdocleaning.model.ManagerContacts;
 
 public class AppConfigResource {
 
     private final String TAG = "AppConfigResource";
-    private final String APP_CONFIG_DOCUMENT = "appconfig";
     private static AppConfigResource instance;
-    private AppConfig config;
+    private ManagerContacts contacts;
 
 
     private AppConfigResource (){
@@ -22,20 +18,16 @@ public class AppConfigResource {
     }
 
     private void readConfig(){
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(APP_CONFIG_DOCUMENT);
-        ref.addValueEventListener(new ValueEventListener() {
+
+        FirestoreManager.getInstance().getContacts(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                config = dataSnapshot.getValue(AppConfig.class);
-                if(config != null){
-                    Log.d(TAG, config.getContactNumberCall());
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        contacts = task.getResult().toObject(ManagerContacts.class);
+                    }
                 }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e(TAG, databaseError.getMessage());
             }
         });
     }
@@ -47,7 +39,7 @@ public class AppConfigResource {
         return instance;
     }
 
-    public AppConfig getConfig() {
-        return config;
+    public ManagerContacts getContacts() {
+        return contacts;
     }
 }

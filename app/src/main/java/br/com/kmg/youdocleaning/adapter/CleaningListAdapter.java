@@ -52,8 +52,8 @@ public class CleaningListAdapter extends FirebaseRecyclerAdapter<Cleaning, Clean
             String duration = DateUtil.getDateStringTimePeriodFromDate(cleaning.getStartCleaning(), cleaning.getFinishCleaning());
             viewHolder.tvCleaningDuration.setText(duration);
             if(cleaning.getCompanyLogoUrl() != null){
-                Glide.with(viewHolder.ivCompanyLogo.getContext())
-                        .load(cleaning.getCompanyLogoUrl()).into(viewHolder.ivCompanyLogo);
+//                Glide.with(viewHolder.ivCompanyLogo.getContext())
+//                        .load(cleaning.getCompanyLogoUrl()).into(viewHolder.ivCompanyLogo);
             }
 
         }
@@ -68,7 +68,7 @@ public class CleaningListAdapter extends FirebaseRecyclerAdapter<Cleaning, Clean
         public CleaningViewHolder(View v) {
             super(v);
             tvDepartmentName = itemView.findViewById(R.id.tv_department_name);
-            ivCompanyLogo = itemView.findViewById(R.id.iv_company_logo);
+//            ivCompanyLogo = itemView.findViewById(R.id.iv_company_logo);
             tvCleaningDuration = itemView.findViewById(R.id.tv_cleaning_duration);
         }
     }

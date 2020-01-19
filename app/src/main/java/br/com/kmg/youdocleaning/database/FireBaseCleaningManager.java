@@ -98,29 +98,6 @@ public class FireBaseCleaningManager {
         });
     }
 
-    public void saveCleaning(Cleaning cleaning, String key){
-        DatabaseReference cleaningRef = database.getReference(CLEANING_DOCUMENT);
-        cleaningRef.child(key).setValue(cleaning);
-    }
-
-    public void getCleaningById(String id){
-        DatabaseReference cleaningRef = database.getReference(CLEANING_DOCUMENT);
-        cleaningRef.child(id).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot != null){
-                    Cleaning cleaning = dataSnapshot.getValue(Cleaning.class);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
-    }
-
     public CleaningListAdapter getFirebaseCleaningAdapter(){
 
         DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();

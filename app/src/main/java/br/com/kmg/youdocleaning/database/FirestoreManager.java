@@ -42,8 +42,12 @@ public class FirestoreManager {
 
     }
 
+    public void getContacts(OnCompleteListener<DocumentSnapshot> listener){
+        DocumentReference docRef = db.collection("settings").document("contact");
+        docRef.get().addOnCompleteListener(listener);
+    }
+
     public void getSector(String sectorId, OnCompleteListener<DocumentSnapshot> listener){
-        //sectorId = "Tg8eEpFCpurFCPSkvrdP";
         DocumentReference docRef = db.collection("sectors").document(sectorId);
         docRef.get().addOnCompleteListener(listener);
     }

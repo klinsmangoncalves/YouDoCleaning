@@ -42,7 +42,7 @@ public class TaskListAdapter extends BaseAdapter {
         TextView name = view.findViewById(R.id.tv_item_task_name);
         TextView duration = view.findViewById(R.id.tv_item_task_duration);
         name.setText(task.getName());
-        duration.setText(task.getDuration() + " minutes");
+        duration.setText(task.getDuration() + " " + parent.getContext().getResources().getString(R.string.minutes_units));
         return view;
     }
 }

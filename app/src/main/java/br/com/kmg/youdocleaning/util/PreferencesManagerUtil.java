@@ -4,38 +4,25 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class PreferencesManagerUtil {
+    public static String JANPRO_PREFERENCE = "janpro_preference";
+    public static String USER_ID_KEY_PREFERENCE = "user_key_preference";
 
-    public static String USER_LOGGED = "user_logged";
-    public static String BEER_PREFERENCE = "beer_preference";
 
-    public static  void savePreference(Context context, String key, String value){
-        SharedPreferences sharedPreferences = context.getSharedPreferences(BEER_PREFERENCE, Context.MODE_PRIVATE);
+    public static void saveUserIdPreference(Context context, String value){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(USER_ID_KEY_PREFERENCE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(key, value);
+        editor.putString(USER_ID_KEY_PREFERENCE, value);
         editor.apply();
     }
 
-    public static void savePreference(Context context, String key, Boolean value){
-        SharedPreferences sharedPreferences = context.getSharedPreferences(BEER_PREFERENCE, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(key, value);
-        editor.apply();
+    public static void removeUserIdPreference(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(USER_ID_KEY_PREFERENCE, Context.MODE_PRIVATE);
+        sharedPreferences.edit().remove(USER_ID_KEY_PREFERENCE).commit();
     }
 
-    public static boolean getBooleanPreference(Context context, String key, boolean defaultValue){
-        SharedPreferences sharedPreferences = context.getSharedPreferences(BEER_PREFERENCE, Context.MODE_PRIVATE);
-
-        boolean result = sharedPreferences.getBoolean(key, defaultValue);
-        return result;
-    }
-
-
-    public static boolean isLogged(Context context){
-        return PreferencesManagerUtil.getBooleanPreference(context, PreferencesManagerUtil.USER_LOGGED, false);
-    }
-
-    public static void setLogged(Context context, boolean logged){
-        PreferencesManagerUtil.savePreference(context, PreferencesManagerUtil.USER_LOGGED, logged);
+    public static String getUserIdPreference(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(JANPRO_PREFERENCE, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(USER_ID_KEY_PREFERENCE, null);
     }
 
 }

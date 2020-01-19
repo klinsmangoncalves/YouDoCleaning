@@ -39,5 +39,8 @@
     <string name="about_description_value">" Este aplicativo foi desenvolvido para ajudar as empresas de limpeza a registrar o tempo de limpeza nos departamentos."</string>
     <string name="about_usage_value">"Quando chegar ao departamento de limpeza, leia o QR Code e comece a limpeza. O seu tempo de trabalho será gravado automaticamente. Quando terminar, clique no botão Concluir (na tela ou no widget)."</string>
     <string name="error_network">Erro de conexão, tente novamente mais tarde</string>
+    <string name="app_description">Agente de Limpeza</string>
+    <string name="authentication_failed">Login ou senha inválidos</string>
+    <string name="minutes_units">minutos</string>
 
 </resources>
