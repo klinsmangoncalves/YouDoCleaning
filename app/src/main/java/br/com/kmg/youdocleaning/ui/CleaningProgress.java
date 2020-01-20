@@ -2,7 +2,9 @@ package br.com.kmg.youdocleaning.ui;
 
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,8 +19,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.preference.PreferenceManager;
 
 import android.os.SystemClock;
 import android.util.Log;
@@ -65,6 +69,8 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
         setContentView(R.layout.activity_cleaning_progress);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Log.d("__AD__", "onCreate");
         mbtFinishCleaning = findViewById(R.id.bt_finish_cleaning);
         fab = findViewById(R.id.fab_report_issue);
         tvTimeStarted = findViewById(R.id.tv_time_started);
@@ -72,9 +78,21 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
 
         setClickListeners();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("__AD__", "onStart");
         FireBaseCleaningManager.getInstance().setmCurrentCleaningListener(this);
         FireBaseCleaningManager.getInstance().getCurrentCleaning(FirebaseAuth.getInstance().getCurrentUser().getUid());
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("__AD__", "onStop");
+        FireBaseCleaningManager.getInstance().setmCurrentCleaningListener(null);
     }
 
     private void setClickListeners(){
@@ -116,6 +134,8 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
 
     @Override
     public void onReadCurrentCleaning(Cleaning cleaning) {
+        Log.d("__AD__", "onReadCurrentCleaning");
+        FireBaseCleaningManager.getInstance().setmCurrentCleaningListener(null);
         if(cleaning != null){
             mCleaning = cleaning;
             mbtFinishCleaning.setEnabled(true);
@@ -125,11 +145,14 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
             long diff = currentTimeMillis - startedCleaningTime;
             long elapsedTime = SystemClock.elapsedRealtime() - diff;
 
-            FireBaseCleaningManager.getInstance().setmCurrentCleaningListener(null);
             setStartedCleaning(cleaning.getStartCleaning());
             updateWidgets(elapsedTime);
             setLvTasksList(cleaning.getIdDepartment());
         }
+//        else {
+//            Toast.makeText(this, getString(R.string.key_pref_sound), Toast.LENGTH_LONG).show();
+//            finish();
+//        }
     }
 
     private void setLvTasksList(String departmentId){
@@ -204,6 +227,9 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
             case R.id.menu_logout:
                 doLogout();
                 break;
+            case R.id.menu_settings:
+                openSettings();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -252,5 +278,26 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+    }
+
+    private void openSettings(){
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this, R.style.ExitDialog)
+                .setTitle(getString(R.string.label_close_app))
+                .setMessage(getString(R.string.label_close_app_description))
+
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        CleaningProgress.super.onBackPressed();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }

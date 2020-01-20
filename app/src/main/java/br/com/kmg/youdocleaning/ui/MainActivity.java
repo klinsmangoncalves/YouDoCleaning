@@ -3,11 +3,13 @@ package br.com.kmg.youdocleaning.ui;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -128,9 +130,12 @@ public class MainActivity extends AppCompatActivity implements OnReadFirebaseCur
     }
 
     private void readQrCode(){
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean beepEnabled = preferences.getBoolean(getString(R.string.key_pref_sound), false);
         IntentIntegrator intentIntegrator = new IntentIntegrator(this);
         intentIntegrator.setPrompt(getString(R.string.label_qr_code_reading));
-        intentIntegrator.setBeepEnabled(false);
+        intentIntegrator.setBeepEnabled(beepEnabled);
         intentIntegrator.setBarcodeImageEnabled(false);
         intentIntegrator.initiateScan();
     }
@@ -216,6 +221,9 @@ public class MainActivity extends AppCompatActivity implements OnReadFirebaseCur
             case R.id.menu_logout:
                 doLogout();
                 break;
+            case R.id.menu_settings:
+                openSettings();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -261,6 +269,11 @@ public class MainActivity extends AppCompatActivity implements OnReadFirebaseCur
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    private void openSettings(){
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 }

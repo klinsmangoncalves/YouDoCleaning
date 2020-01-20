@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import br.com.kmg.youdocleaning.ui.CleaningWidgetProvider;
 import br.com.kmg.youdocleaning.R;
 import br.com.kmg.youdocleaning.database.FireBaseCleaningManager;
@@ -71,7 +73,7 @@ public class FinishCleaningService extends IntentService {
     }
 
     private void handleActionFinishCleaning(String user) {
-        FireBaseCleaningManager.getInstance().finishCleaning(user);
+        FireBaseCleaningManager.getInstance().finishCleaning(FirebaseAuth.getInstance().getCurrentUser().getUid());
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int [] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, CleaningWidgetProvider.class));
         Toast.makeText(this, getString(R.string.cleaning_finished_message), Toast.LENGTH_LONG).show();

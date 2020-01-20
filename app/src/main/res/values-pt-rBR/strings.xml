@@ -45,5 +45,16 @@
     <string name="tv_forget_password"><u>Esqueci minha senha</u></string>
     <string name="msg_invalid_email">Informe seu email</string>
     <string name="msg_email_sent">Uma mensagem foi enviada para o email informado</string>
+    <string name="sound_qr_code">Som ao ler QR Code</string>
+    <string name="sound_qr_code_summary_off">Sem som ao reconhecer</string>
+    <string name="sound_qr_code_summary_on">Emite um bit após ler QR Code</string>
+    <string name="sounds_preferences">Sons</string>
+    <string name="title_activity_settings">Configurações</string>
+    <string name="menu_settings">Configurações</string>
+    <string name="label_widget">Nova Limpeza</string>
+    <string name="label_widget_cleaning_progress">Limpeza em andamento</string>
+    <string name="msg_no_cleaning_progress">Nenhuma limpeza em andamento</string>
+    <string name="label_close_app">Sair do app</string>
+    <string name="label_close_app_description">Deseja realmente sair?</string>
 
 </resources>

@@ -14,6 +14,12 @@
         app:showAsAction="never"
         android:title="@string/menu_finish_cleaning"
         android:id="@+id/menu_finish_cleaning" />
+
+    <item
+        app:showAsAction="never"
+        android:title="@string/menu_settings"
+        android:id="@+id/menu_settings" />
+
     <item
         app:showAsAction="never"
         android:title="@string/menu_about"

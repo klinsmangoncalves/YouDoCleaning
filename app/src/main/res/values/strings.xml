@@ -47,5 +47,23 @@
     <string name="tv_forget_password"><u>Forget my password</u></string>
     <string name="msg_invalid_email">Invalid email</string>
     <string name="msg_email_sent">A message has been sent to your email</string>
+    <string name="msg_no_cleaning_progress">No cleanings in progress</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="label_widget">New cleaning</string>
+    <string name="label_widget_cleaning_progress">Cleaning in progress</string>
+    <string name="label_close_app">Close app</string>
+    <string name="label_close_app_description">Really wants exit?</string>
+
+    <!-- Preference Titles -->
+    <string name="sounds_preferences">Sounds</string>
+
+    <!-- Preference Keys -->
+    <string name="key_pref_sound" translatable="false">key_sound</string>
+
+    <!-- Sync Preferences -->
+    <string name="sound_qr_code">Sound when read QR Code</string>
+    <string name="sound_qr_code_summary_on">Emits a beep after read QR Code</string>
+    <string name="sound_qr_code_summary_off">Disable sound when read QR Code</string>
+    <string name="menu_settings">Settings</string>
 
 </resources>
