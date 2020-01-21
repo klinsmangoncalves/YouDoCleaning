@@ -190,6 +190,7 @@ public class MainActivity extends AppCompatActivity implements OnReadFirebaseCur
 
     private void openProgressActivity(){
         Intent intent = new Intent(this, CleaningProgress.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }

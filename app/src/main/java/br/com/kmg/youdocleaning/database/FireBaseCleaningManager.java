@@ -1,9 +1,11 @@
 package br.com.kmg.youdocleaning.database;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -11,10 +13,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import br.com.kmg.youdocleaning.R;
 import br.com.kmg.youdocleaning.adapter.CleaningListAdapter;
 import br.com.kmg.youdocleaning.listener.OnReadFirebaseCurrentCleaning;
 import br.com.kmg.youdocleaning.model.Cleaning;
+import br.com.kmg.youdocleaning.model.CleaningStatus;
 import br.com.kmg.youdocleaning.model.FireStoreCleaning;
+import br.com.kmg.youdocleaning.model.Timestamp;
 
 public class FireBaseCleaningManager {
 
@@ -55,10 +60,11 @@ public class FireBaseCleaningManager {
         Log.d(TAG, "deleteCurrentCleaning: " + userId);
     }
 
-    public void finishCleaning(final String userId){
+    public void finishCleaningWidget(final String userId){
         Log.d(TAG, "finish cleaning: " + userId);
-        DatabaseReference cleaningRef = database.getReference(userId);
-        cleaningRef.addValueEventListener(new ValueEventListener() {
+        final DatabaseReference cleaningRef = database.getReference(userId);
+
+        final ValueEventListener changeValueListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Cleaning cleaning = null;
@@ -66,17 +72,25 @@ public class FireBaseCleaningManager {
                     Log.d(TAG, "deleteCurrentCleaning: snapshot received");
                     cleaning = dataSnapshot.getValue(Cleaning.class);
                     if(cleaning != null){
+                        cleaning.setFinishCleaning( new Timestamp());
+                        cleaning.setStatus(CleaningStatus.FINISHED.getDescription());
+                        cleaning.setUserId(userId);
+                        FireBaseCleaningManager.getInstance().saveCleaning(cleaning);
+                        FireBaseCleaningManager.getInstance().deleteCurrentCleaning(userId);
                         FirestoreManager.getInstance().saveCleaning(new FireStoreCleaning(cleaning));
-                        deleteCurrentCleaning(userId);
                     }
                 }
+                cleaningRef.removeEventListener(this);
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
-        });
+        };
+
+        cleaningRef.addValueEventListener(changeValueListener);
+
 
     }
 

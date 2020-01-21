@@ -67,6 +67,7 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cleaning_progress);
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -192,6 +193,7 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
 
     private void openMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }
