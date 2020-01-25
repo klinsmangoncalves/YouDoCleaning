@@ -9,6 +9,8 @@
     <string name="bt_finish_cleaning_label">Finish</string>
     <string name="label_no_cleanings_today">No cleanings realized today. Click on the Read QR code and start cleaning.</string>
     <string name="cleaning_finished_message">Cleaning Finished</string>
+    <string name="cleaning_canceled_message">Cleaning Canceled</string>
+    <string name="bt_cancel_cleaning">Cancel</string>
     <string name="qr_code_recognized_message">Department Recognized</string>
     <string name="qr_code_not_recognized_message">Invalid QR Code</string>
     <string name="label_cleaning_start">Started at: %1$s</string>

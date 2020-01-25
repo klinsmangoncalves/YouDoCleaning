@@ -46,10 +46,6 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        if(PreferencesManagerUtil.getUserIdPreference(getApplicationContext()) != null){
-            goToNextActivity();
-        }
-
         btLogin = findViewById(R.id.bt_do_login);
         tivLogin = findViewById(R.id.tiv_login);
         tivPassword = findViewById(R.id.tiv_password);
@@ -79,10 +75,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void doLogin(){
-        PreferencesManagerUtil.saveUserIdPreference(getApplicationContext(), "user");
-        goToNextActivity();
-    }
 
     @Override
     protected void onStart() {
@@ -91,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
         if(currentUser == null){
             //loginFirebase("klinsman.goncalves@gmail.com","123456");
         }else {
-            updateUI(currentUser);
+            goToNextActivity(true);
         }
     }
 
@@ -132,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser currentUser) {
         Log.d(TAG, currentUser != null ? currentUser.getUid() : " null ");
         if(currentUser != null ){
-            goToNextActivity();
+            goToNextActivity(false);
         }
     }
 
@@ -158,9 +150,13 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void goToNextActivity(){
+    private void goToNextActivity(boolean noAnimation){
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+        if(noAnimation){
+            this.overridePendingTransition(0, 0);
+        }
+
     }
 }

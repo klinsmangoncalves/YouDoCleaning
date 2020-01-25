@@ -84,8 +84,8 @@ public class MainActivity extends AppCompatActivity implements OnReadFirebaseCur
         mLinearLayoutManager.setStackFromEnd(true);
         mMessageRecyclerView.setLayoutManager(gridLayoutManager);
 
-        FireBaseCleaningManager.getInstance().getCurrentCleaning(userId);
         FireBaseCleaningManager.getInstance().setmCurrentCleaningListener(this);
+        FireBaseCleaningManager.getInstance().getCurrentCleaning(userId);
 
         Intent intent = getIntent();
         if(intent != null && intent.hasExtra(CleaningWidgetProvider.WIDGET_INFO_EXTRA)){
@@ -173,13 +173,13 @@ public class MainActivity extends AppCompatActivity implements OnReadFirebaseCur
     public void onRecognizeSector(Cleaning cleaning){
         FireBaseCleaningManager.getInstance().saveCurrentCleaning(cleaning, FirebaseAuth.getInstance().getCurrentUser().getUid());
         Toast.makeText(this, getString(R.string.qr_code_recognized_message), Toast.LENGTH_LONG).show();
-        openProgressActivity();
+        openProgressActivity(false);
     }
 
     @Override
     public void onReadCurrentCleaning(Cleaning cleaning) {
         if(cleaning != null){
-            openProgressActivity();
+            openProgressActivity(true);
         } else {
             mBtReadQRCode.setEnabled(true);
             if(mLaunchedWidget){
@@ -188,10 +188,13 @@ public class MainActivity extends AppCompatActivity implements OnReadFirebaseCur
         }
     }
 
-    private void openProgressActivity(){
+    private void openProgressActivity(boolean noAnimation){
         Intent intent = new Intent(this, CleaningProgress.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+        if(noAnimation){
+            this.overridePendingTransition(0, 0);
+        }
         finish();
     }
 

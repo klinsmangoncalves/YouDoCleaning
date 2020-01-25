@@ -55,6 +55,7 @@ import br.com.kmg.youdocleaning.util.DateUtil;
 
 public class CleaningProgress extends AppCompatActivity implements OnReadFirebaseCurrentCleaning {
     private Button mbtFinishCleaning;
+    private Button mbtCancelCleaning;
     private FloatingActionButton fab;
     private TextView tvTimeStarted;
     private Cleaning mCleaning;
@@ -73,8 +74,9 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
 
         Log.d("__AD__", "onCreate");
         mbtFinishCleaning = findViewById(R.id.bt_finish_cleaning);
-        fab = findViewById(R.id.fab_report_issue);
-        tvTimeStarted = findViewById(R.id.tv_time_started);
+        mbtCancelCleaning = findViewById(R.id.bt_cancel_cleaning);
+        //fab = findViewById(R.id.fab_report_issue);
+        //tvTimeStarted = findViewById(R.id.tv_time_started);
         lvTasks = findViewById(R.id.lv_tasks);
 
         setClickListeners();
@@ -97,25 +99,37 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
     }
 
     private void setClickListeners(){
-        fab.setOnClickListener(new View.OnClickListener() {
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, getString(R.string.menu_report_issue), Snackbar.LENGTH_LONG)
+//                        .setAction(getString(R.string.action_open_whatsapp), new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                reportIssue();
+//                            }
+//                        }).show();
+//            }
+//        });
+
+        mbtCancelCleaning.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, getString(R.string.menu_report_issue), Snackbar.LENGTH_LONG)
-                        .setAction(getString(R.string.action_open_whatsapp), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                reportIssue();
-                            }
-                        }).show();
+            public void onClick(View v) {
+                cancelCurrentCleaning();
             }
         });
-
         mbtFinishCleaning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finishCleaning();
             }
         });
+    }
+
+    private void cancelCurrentCleaning() {
+        FireBaseCleaningManager.getInstance().deleteCurrentCleaning(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        openMainActivity();
+        Toast.makeText(this, getString(R.string.cleaning_canceled_message), Toast.LENGTH_LONG).show();
     }
 
 
@@ -146,7 +160,11 @@ public class CleaningProgress extends AppCompatActivity implements OnReadFirebas
             long diff = currentTimeMillis - startedCleaningTime;
             long elapsedTime = SystemClock.elapsedRealtime() - diff;
 
-            setStartedCleaning(cleaning.getStartCleaning());
+            if(cleaning != null && cleaning.getDepartmentName() != null && !cleaning.getDepartmentName().isEmpty()){
+                setTitle(cleaning.getDepartmentName());
+            }
+
+            //setStartedCleaning(cleaning.getStartCleaning());
             updateWidgets(elapsedTime);
             setLvTasksList(cleaning.getIdDepartment());
         }

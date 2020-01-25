@@ -56,5 +56,7 @@
     <string name="msg_no_cleaning_progress">Nenhuma limpeza em andamento</string>
     <string name="label_close_app">Sair do app</string>
     <string name="label_close_app_description">Deseja realmente sair?</string>
+    <string name="cleaning_canceled_message">Limpeza Cancelada</string>
+    <string name="bt_cancel_cleaning">Cancelar</string>
 
 </resources>

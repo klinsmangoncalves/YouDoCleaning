@@ -44,7 +44,6 @@
         </receiver>
 
         <activity
-            android:screenOrientation="portrait"
             android:name=".ui.CleaningProgress"
             android:label="@string/title_activity_cleaning_progress"
             android:launchMode="singleTop"

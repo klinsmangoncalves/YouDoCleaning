@@ -1,61 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.CleaningProgress"
-    tools:showIn="@layout/activity_cleaning_progress">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/iv_header_cleaning_progress"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/banner_image"
-        android:contentDescription="@string/cd_banner_image" />
-
-    <TextView
-        android:id="@+id/tv_time_started"
-        android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/chronometer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <ListView
         android:id="@+id/lv_tasks"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_height="0dp"
         android:layout_margin="6dp"
+        android:gravity="center"
         android:textColor="@color/textColorDark"
         android:textSize="30sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/bt_finish_cleaning"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/bt_finish_cleaning"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_margin="6dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
         android:background="@drawable/bg_button_stop_disabled"
-        android:drawableStart="@drawable/ic_stop_black_24dp"
+        android:drawableEnd="@drawable/ic_check_black_24dp"
         android:enabled="false"
+        android:layout_marginEnd="4dp"
         android:paddingHorizontal="10dp"
         android:text="@string/bt_finish_cleaning_label"
         android:textColor="@color/textColor"
-        android:textSize="25sp"
         app:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
         app:pressedTranslationZ="12dp" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
+    <Button
+        android:paddingStart="2dp"
+        android:layout_marginStart="4dp"
+        android:id="@+id/bt_cancel_cleaning"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:drawableStart="@drawable/ic_close_black_24dp"
+        android:text="@string/bt_cancel_cleaning"
+        app:elevation="8dp"
+        app:pressedTranslationZ="12dp"
+        android:background="@drawable/bg_button_cancel_cleaning"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bt_finish_cleaning"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

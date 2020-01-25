@@ -20,15 +20,39 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+<!--    <LinearLayout-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/iv_header_cleaning_progress"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="70dp"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            app:srcCompat="@drawable/banner_image"-->
+<!--            android:contentDescription="@string/cd_banner_image" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_time_started"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="49dp"-->
+<!--            android:layout_marginBottom="16dp"-->
+<!--            android:background="@color/colorPrimary"-->
+<!--            android:gravity="center"-->
+<!--            android:textSize="25sp"-->
+<!--            android:textStyle="bold"/>-->
+<!--    </LinearLayout>-->
+
     <include layout="@layout/content_cleaning_progress" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_report_issue"
-        android:elevation="6dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/stat_sys_warning" />
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/fab_report_issue"-->
+<!--        android:elevation="6dp"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center|end"-->
+<!--        android:layout_margin="@dimen/fab_margin"-->
+<!--        app:srcCompat="@android:drawable/stat_sys_warning" />-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
