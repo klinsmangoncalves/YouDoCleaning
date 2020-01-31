@@ -42,7 +42,6 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:inputType="text"
-            android:drawableEnd="@drawable/ic_person_black_24dp"
             android:drawablePadding="2dp"
             android:hint="@string/str_login_id" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -63,7 +62,6 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:inputType="textPassword"
-            android:drawableEnd="@drawable/ic_vpn_key_black_24dp"
             android:hint="@string/str_login_pass" />
     </com.google.android.material.textfield.TextInputLayout>
 
