@@ -6,7 +6,7 @@
             <solid android:color="@color/btStopColor"/>
             <corners android:radius="30dp"
                 android:bottomRightRadius="0dp"
-                android:topRightRadius="0dp"
-                />        </shape>
+                android:topRightRadius="0dp" />
+        </shape>
     </item>
 </ripple>

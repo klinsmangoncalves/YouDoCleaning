@@ -30,7 +30,7 @@
            android:textSize="15sp"
            android:textStyle="bold" />
 
-       <Button
+       <androidx.appcompat.widget.AppCompatButton
            android:layout_weight="1"
            android:id="@+id/bt_widget_finish_cleaning"
            android:layout_width="match_parent"
